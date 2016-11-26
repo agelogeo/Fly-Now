@@ -49,7 +49,7 @@
                         android:id="@+id/textView13" />
 
                     <TextView
-                        android:text="Προς"
+                        android:text="Πρός"
                         android:layout_width="213dp"
                         android:layout_height="31dp"
                         android:id="@+id/textView14" />
