@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,8 +11,187 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="gr.uom.agelogeo.androidproject.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageView3"
+                        android:layout_weight="0.99" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:text="Από"
+                            android:layout_width="match_parent"
+                            android:layout_height="29dp"
+                            android:id="@+id/textView13" />
+
+                        <TextView
+                            android:text="Προς"
+                            android:layout_width="213dp"
+                            android:layout_height="31dp"
+                            android:id="@+id/textView14" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageButton3"
+                        android:layout_weight="0.68" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:text="ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switch1"
+                    android:layout_weight="0.99" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageView4" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:text="Ημερομηνία αναχώρησης"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView16"
+                            android:layout_weight="1.12" />
+
+                        <TextView
+                            android:text="Ημερομηνία επιστροφής"
+                            android:layout_width="match_parent"
+                            android:layout_height="29dp"
+                            android:id="@+id/textView15" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:layout_width="68dp"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageButton4" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:text="+/- 3 Ημερών"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switch2" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageView6"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/imageView5"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="1 Επιβάτης"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView17"
+                        android:layout_weight="0.30" />
+
+                    <TextView
+                        android:text="ΟΛΕΣ ΟΙ ΤΑΞΙΔΙΩΤΙΚΕΣ ΘΕΣΕΙΣ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView18"
+                        android:layout_weight="0.30" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>
