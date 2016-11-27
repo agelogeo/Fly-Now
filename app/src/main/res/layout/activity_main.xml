@@ -23,7 +23,6 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -32,9 +31,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/airplane"
                     android:id="@+id/imageView3"
-                    android:layout_weight="0.99" />
+                    android:layout_weight="0.50" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -57,11 +56,14 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="37dp"
                     android:layout_height="match_parent"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/recycle"
                     android:id="@+id/imageButton3"
-                    android:layout_weight="0.68" />
+                    android:elevation="0dp"
+                    android:adjustViewBounds="false"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="0.10" />
 
             </LinearLayout>
 
@@ -81,7 +83,7 @@
                 <ImageView
                     android:layout_width="55dp"
                     android:layout_height="match_parent"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/calendar"
                     android:id="@+id/imageView4" />
 
                 <LinearLayout
@@ -104,12 +106,6 @@
                         android:layout_height="29dp"
                         android:id="@+id/textView15" />
                 </LinearLayout>
-
-                <ImageButton
-                    android:layout_width="68dp"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
-                    android:id="@+id/imageButton4" />
 
             </LinearLayout>
 
@@ -135,14 +131,14 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/people"
                     android:id="@+id/imageView6"
                     android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/bluestar"
                     android:id="@+id/imageView5"
                     android:layout_weight="1" />
 
