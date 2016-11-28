@@ -14,7 +14,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
 
         <LinearLayout
@@ -46,7 +47,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="29dp"
                         android:id="@+id/textView13" />
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"/>
                     <TextView
                         android:text="Πρός"
                         android:layout_width="213dp"
@@ -73,12 +77,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/switch1"
                 android:layout_weight="0.99" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/darker_gray"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="58dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="55dp"
@@ -93,18 +100,27 @@
                     android:layout_weight="1"
                     android:weightSum="1">
 
-                    <TextView
-                        android:text="Ημερομηνία αναχώρησης"
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView16"
-                        android:layout_weight="1.12" />
-
-                    <TextView
-                        android:text="Ημερομηνία επιστροφής"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/departueDate"
+                        android:hint="Ημερομηνία Αναχώρησης"
+                        android:singleLine="true"
+                        android:selectAllOnFocus="false" />
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="29dp"
-                        android:id="@+id/textView15" />
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/arrivalDate"
+                        android:hint="Ημερομηνία Επιστροφής" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -114,14 +130,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/switch2" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/darker_gray"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -154,18 +173,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView17"
-                    android:layout_weight="0.30" />
+                    android:layout_weight="0.06" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
                 <TextView
-                    android:text="ΟΛΕΣ ΟΙ ΤΑΞΙΔΙΩΤΙΚΕΣ ΘΕΣΕΙΣ"
-                    android:layout_width="wrap_content"
+                    android:text="1 Επιβάτης"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView18"
-                    android:layout_weight="0.30" />
+                    android:id="@+id/textView17"
+                    android:layout_weight="0.06" />
 
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray"/>
 
         <Button
             android:text="Αναζήτηση Πτήσεων"
