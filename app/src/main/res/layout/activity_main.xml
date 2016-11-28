@@ -103,22 +103,21 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:ems="10"
-                        android:id="@+id/departueDate"
+                        android:inputType="textPersonName"
+                        android:focusableInTouchMode="false"
                         android:hint="Ημερομηνία Αναχώρησης"
-                        android:singleLine="true"
-                        android:selectAllOnFocus="false" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"/>
+                        android:ems="10"
+                        android:id="@+id/departureDate"/>
+
+
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:ems="10"
                         android:id="@+id/arrivalDate"
+                        android:focusableInTouchMode="false"
+                        android:singleLine="true"
                         android:hint="Ημερομηνία Επιστροφής" />
 
                 </LinearLayout>
