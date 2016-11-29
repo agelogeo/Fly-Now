@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidProject</string>
+    <string name="app_name">Fly Now</string>
 
 
     <string-array name="ticket_plan">

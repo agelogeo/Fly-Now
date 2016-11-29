@@ -45,21 +45,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <TextView
-                        android:text="Από"
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="29dp"
-                        android:id="@+id/textView13" />
-                    <View
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/fromText"
+                        android:focusableInTouchMode="false"
+                        android:hint="Από" />
+
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"
-                        android:id="@+id/line1" />
-                    <TextView
-                        android:text="Πρός"
-                        android:layout_width="213dp"
-                        android:layout_height="31dp"
-                        android:id="@+id/textView14" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/destText"
+                        android:focusableInTouchMode="false"
+                        android:hint="Πρός" />
 
                 </LinearLayout>
 
@@ -67,7 +69,7 @@
                     android:layout_width="37dp"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/recycle"
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/swapAirports"
                     android:elevation="0dp"
                     android:adjustViewBounds="false"
                     android:background="@android:color/transparent"
@@ -116,15 +118,29 @@
                         android:id="@+id/departureDate"/>
 
 
-                    <EditText
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:ems="10"
-                        android:id="@+id/arrivalDate"
-                        android:focusableInTouchMode="false"
-                        android:singleLine="true"
-                        android:hint="Ημερομηνία Επιστροφής" />
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/arrivalDate"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true"
+                            android:hint="Ημερομηνία Επιστροφής"
+                            android:layout_weight="1" />
+
+                        <ImageButton
+                            android:layout_width="26dp"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/x_icon"
+                            android:id="@+id/clearReturnDate"
+                            android:background="@android:color/transparent" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
