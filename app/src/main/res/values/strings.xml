@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+
+
+    <string-array name="ticket_plan">
+        <item>All Cabin Classes</item>
+        <item>Economy</item>
+        <item>Economy Premium</item>
+        <item>Business</item>
+        <item>First</item>
+    </string-array>
 </resources>

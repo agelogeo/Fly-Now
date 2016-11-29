@@ -188,12 +188,12 @@
                     android:background="@android:color/darker_gray"
                     android:id="@+id/line4" />
 
-                <TextView
-                    android:text="1 Επιβάτης"
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView17"
-                    android:layout_weight="0.06" />
+                    android:id="@+id/ticket_plan"
+                    android:layout_weight="0.06"
+                    android:entries="@array/ticket_plan" />
 
             </LinearLayout>
         </LinearLayout>
