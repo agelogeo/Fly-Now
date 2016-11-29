@@ -53,18 +53,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected Dialog onCreateDialog(int id){
-        if ( id == DEPARTURE_DATE_ID )
-            return new DatePickerDialog(this, dpickerListner , year_x,month_x,day_x );
-        else if ( id == ARRIVAL_DATE_ID )
-            return new DatePickerDialog(this, dpickerListner2 , year_x,month_x,day_x);
-        return null;
+        if ( id == DEPARTURE_DATE_ID ) {
+            DatePickerDialog dialog = new DatePickerDialog(this, dpickerListner, year_x, month_x, day_x);
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+            return dialog;
+        }else if ( id == ARRIVAL_DATE_ID ) {
+            DatePickerDialog dialog = new DatePickerDialog(this, dpickerListner2, year_x, month_x, day_x);
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+            return dialog;
+        }return null;
     }
 
     private DatePickerDialog.OnDateSetListener dpickerListner
             = new DatePickerDialog.OnDateSetListener() {
+
         @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-           departureText.setText(day+"/"+(month+1)+"/"+year);
+
+        public void onDateSet(DatePicker datePicker, int year, int month, int day ) {
+            departureText.setText(day+"/"+(month+1)+"/"+year);
         }
     };
 

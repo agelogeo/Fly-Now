@@ -15,25 +15,28 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:id="@+id/fullLayout">
 
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/upperLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:id="@+id/destinationLayout">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/airplane"
-                    android:id="@+id/imageView3"
+                    android:id="@+id/airplane_icon"
                     android:layout_weight="0.50" />
 
                 <LinearLayout
@@ -50,7 +53,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"/>
+                        android:background="@android:color/darker_gray"
+                        android:id="@+id/line1" />
                     <TextView
                         android:text="Πρός"
                         android:layout_width="213dp"
@@ -75,23 +79,25 @@
                 android:text="ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch1"
+                android:id="@+id/directflightswitch"
                 android:layout_weight="0.99" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+                android:id="@+id/line2" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/dateLayout">
 
                 <ImageView
                     android:layout_width="55dp"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/calendar"
-                    android:id="@+id/imageView4" />
+                    android:id="@+id/calendar_icon" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -128,18 +134,21 @@
                 android:text="+/- 3 Ημερών"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch2" />
+                android:id="@+id/dayswitch" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+                android:id="@+id/line3" />
         </LinearLayout>
 
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLayout">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -150,14 +159,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/people"
-                    android:id="@+id/imageView6"
+                    android:id="@+id/passenger_icon"
                     android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/bluestar"
-                    android:id="@+id/imageView5"
+                    android:id="@+id/star_icon"
                     android:layout_weight="1" />
 
             </LinearLayout>
@@ -176,7 +185,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"/>
+                    android:background="@android:color/darker_gray"
+                    android:id="@+id/line4" />
 
                 <TextView
                     android:text="1 Επιβάτης"
@@ -191,13 +201,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:id="@+id/lineBottom" />
 
         <Button
             android:text="Αναζήτηση Πτήσεων"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button4" />
+            android:id="@+id/search_flights_btn" />
 
     </LinearLayout>
 
