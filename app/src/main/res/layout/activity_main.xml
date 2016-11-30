@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,8 +11,221 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="gr.uom.agelogeo.androidproject.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:baselineAligned="false"
+        android:id="@+id/fullLayout">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/upperLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/destinationLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/airplane"
+                    android:id="@+id/airplane_icon"
+                    android:layout_weight="0.50" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/fromText"
+                        android:focusableInTouchMode="false"
+                        android:hint="Από" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/destText"
+                        android:focusableInTouchMode="false"
+                        android:hint="Πρός" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:layout_width="37dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/recycle"
+                    android:id="@+id/swapAirports"
+                    android:elevation="0dp"
+                    android:adjustViewBounds="false"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="0.10" />
+
+            </LinearLayout>
+
+            <Switch
+                android:text="ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/directflightswitch"
+                android:layout_weight="0.99" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/line2" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateLayout">
+
+                <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/calendar"
+                    android:id="@+id/calendar_icon" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:focusableInTouchMode="false"
+                        android:ems="10"
+                        android:id="@+id/departureDate"
+                        android:hint="Ημερομηνία Αναχώρησης" />
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:ems="10"
+                            android:id="@+id/returnDate"
+                            android:focusableInTouchMode="false"
+                            android:singleLine="true"
+                            android:hint="Ημερομηνία Επιστροφής"
+                            android:layout_weight="1" />
+
+                        <ImageButton
+                            android:layout_width="26dp"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/x_icon"
+                            android:id="@+id/clearReturnDate"
+                            android:background="@android:color/transparent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Switch
+                android:text="+/- 3 Ημερών"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dayswitch" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/line3" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomLayout">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/people"
+                    android:id="@+id/passenger_icon"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/star_icon"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="1 Επιβάτης"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView17"
+                    android:layout_weight="0.06" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:id="@+id/line4" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ticket_plan"
+                    android:layout_weight="0.06"
+                    android:entries="@array/ticket_plan" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/lineBottom" />
+
+        <Button
+            android:text="Αναζήτηση Πτήσεων"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_flights_btn" />
+
+    </LinearLayout>
+
+</ScrollView>
