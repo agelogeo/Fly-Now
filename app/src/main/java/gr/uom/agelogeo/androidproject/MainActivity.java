@@ -2,25 +2,25 @@ package gr.uom.agelogeo.androidproject;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Intent;
-import android.media.Image;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    EditText departureText;
-    EditText arrivalText;
+    EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
+    EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
     EditText fromText,destText;
     ImageButton swapAirports,clearReturnDate;
     int year_x,month_x,day_x;
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        returnText = (EditText) findViewById(R.id.returnDate);
+        departureText = (EditText) findViewById(R.id.departureDate);
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
         month_x=cal.get(Calendar.MONTH);
@@ -80,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
         clearReturnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrivalText = (EditText) findViewById(R.id.arrivalDate);
-                if(arrivalText.getText().length()!=0)
-                    arrivalText.getText().clear();
+                if(returnText.getText().length()!=0)
+                    returnText.getText().clear();
             }
         });
     }
@@ -94,20 +93,67 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
-                String stredittext=data.getStringExtra("edittextvalue");
+                String stredittext=data.getStringExtra("getSelectedItem");
                 fromText.setText(stredittext);
             }
         }
         else if (requestCode == 2) {
             if(resultCode == RESULT_OK){
-                String stredittext=data.getStringExtra("edittextvalue");
+                String stredittext=data.getStringExtra("getSelectedItem");
                 destText.setText(stredittext);
             }
         }
     }
 
     public void showDialogOnClick(){
-        departureText = (EditText) findViewById(R.id.departureDate);
+        departureText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date departureD = sdf.parse(s.toString());
+                    if(returnText.getText().length()!=0) {
+                        Date returnD = sdf.parse(returnText.getText().toString());
+                        if(departureD.after(returnD))
+                            returnText.setText("");
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        });
+
+        returnText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date returnD = sdf.parse(s.toString());
+                    if(returnText.getText().length()!=0) {
+                        Date departureD = sdf.parse(departureText.getText().toString());
+                        if(returnD.before(departureD))
+                            departureText.setText("");
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {            }
+        });
+
         departureText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,8 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        arrivalText = (EditText) findViewById(R.id.arrivalDate);
-        arrivalText.setOnClickListener(new View.OnClickListener() {
+        returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog(ARRIVAL_DATE_ID);
@@ -150,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            arrivalText.setText(day+"/"+(month+1)+"/"+year);
+            returnText.setText(day+"/"+(month+1)+"/"+year);
         }
     };
 }

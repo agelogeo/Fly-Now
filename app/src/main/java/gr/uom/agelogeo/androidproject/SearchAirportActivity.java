@@ -1,8 +1,6 @@
 package gr.uom.agelogeo.androidproject;
 
-import android.app.DownloadManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,14 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -103,7 +98,7 @@ public class SearchAirportActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent();
-                        intent.putExtra("edittextvalue",listView.getItemAtPosition(position).toString());
+                        intent.putExtra("getSelectedItem",listView.getItemAtPosition(position).toString());
                         setResult(RESULT_OK, intent);
                         finish();
                     }

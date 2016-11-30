@@ -111,11 +111,11 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="date"
                         android:focusableInTouchMode="false"
-                        android:hint="Ημερομηνία Αναχώρησης"
                         android:ems="10"
-                        android:id="@+id/departureDate"/>
+                        android:id="@+id/departureDate"
+                        android:hint="Ημερομηνία Αναχώρησης" />
 
 
                     <LinearLayout
@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="date"
                             android:ems="10"
-                            android:id="@+id/arrivalDate"
+                            android:id="@+id/returnDate"
                             android:focusableInTouchMode="false"
                             android:singleLine="true"
                             android:hint="Ημερομηνία Επιστροφής"
