@@ -42,7 +42,7 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <EditText
@@ -66,14 +66,15 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:layout_width="37dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/recycle"
                     android:id="@+id/swapAirports"
                     android:elevation="0dp"
                     android:adjustViewBounds="false"
                     android:background="@android:color/transparent"
-                    android:layout_weight="0.10" />
+                    android:layout_weight="0.10"
+                    android:tint="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
@@ -82,7 +83,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/directflightswitch"
-                android:layout_weight="0.99" />
+                android:layout_weight="0.99"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorLink="@color/colorPrimaryDark" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
@@ -139,7 +142,8 @@
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/x_icon"
                             android:id="@+id/clearReturnDate"
-                            android:background="@android:color/transparent" />
+                            android:background="@android:color/transparent"
+                            android:tint="@color/colorAccent" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -150,7 +154,8 @@
                 android:text="+/- 3 Ημερών"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/flexdayswitch" />
+                android:id="@+id/flexdayswitch"
+                android:textColor="@color/colorPrimaryDark" />
 
             <View
                 android:layout_width="match_parent"
@@ -172,18 +177,18 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
                     app:srcCompat="@drawable/people"
-                    android:id="@+id/passenger_icon"
-                    android:layout_weight="1" />
+                    android:id="@+id/passenger_icon" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/bluestar"
                     android:id="@+id/star_icon"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:tint="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
@@ -192,17 +197,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:text="1 Επιβάτης"
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView17"
-                    android:layout_weight="0.06" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
-                    android:id="@+id/line4" />
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/passengersText"
+                    android:focusableInTouchMode="false"
+                    android:hint="1 Επιβάτης" />
 
                 <Spinner
                     android:layout_width="match_parent"

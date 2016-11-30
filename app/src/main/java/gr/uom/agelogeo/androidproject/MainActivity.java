@@ -8,23 +8,28 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
     EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
-    EditText fromText,destText;
+    EditText fromText,destText,passengersText;
     ImageButton swapAirports,clearReturnDate;
     Switch directflightswitch,flexdayswitch;
+    Button searchflightsbtn ;
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
@@ -35,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
+        passengersText = (EditText) findViewById(R.id.passengersText);
         directflightswitch = (Switch) findViewById(R.id.directflightswitch);
         flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
-
+        searchflightsbtn = (Button)findViewById(R.id.search_flights_btn);
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
         month_x=cal.get(Calendar.MONTH);
@@ -88,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(returnText.getText().length()!=0)
                     returnText.getText().clear();
+            }
+        });
+
+
+        passengersText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setTitle("Login");
+                dialog.setContentView(R.layout.fragment_blank);
+                dialog.show();
+
             }
         });
     }
