@@ -74,7 +74,7 @@
                     android:adjustViewBounds="false"
                     android:background="@android:color/transparent"
                     android:layout_weight="0.10"
-                    android:tint="@color/colorPrimaryDark" />
+                    android:tint="@color/colorAccent" />
 
             </LinearLayout>
 
@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/directflightswitch"
                 android:layout_weight="0.99"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorLink="@color/colorPrimaryDark" />
+                android:textColor="@color/colorAccent"
+                android:textColorLink="@color/colorAccent" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/flexdayswitch"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorAccent" />
 
             <View
                 android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                     app:srcCompat="@drawable/bluestar"
                     android:id="@+id/star_icon"
                     android:layout_weight="1"
-                    android:tint="@color/colorPrimaryDark" />
+                    android:tint="@color/colorAccent" />
 
             </LinearLayout>
 

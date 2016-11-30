@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setTitle("Login");
+                dialog.setTitle("Passenger Selection");
                 dialog.setContentView(R.layout.fragment_blank);
                 dialog.show();
 
