@@ -17,12 +17,14 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
     EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
     EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
     EditText fromText,destText;
     ImageButton swapAirports,clearReturnDate;
+    Switch directflightswitch,flexdayswitch;
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
@@ -30,8 +32,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
+        directflightswitch = (Switch) findViewById(R.id.directflightswitch);
+        flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
+
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
         month_x=cal.get(Calendar.MONTH);
