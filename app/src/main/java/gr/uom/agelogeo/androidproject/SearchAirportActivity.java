@@ -38,58 +38,62 @@ public class SearchAirportActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 final String sString = s.toString();
-                new AsyncTask<Void, Void, String>() {
-                    private Exception exception;
-                    @Override
-                    protected void onPreExecute() {
-                    }
+                if(s.length()!=0) {
+                    new AsyncTask<Void, Void, String>() {
+                        private Exception exception;
 
-                    protected String doInBackground(Void... urls) {
-                        try {
-                            String apiKey = "bRhGutftGrzmjS21sLPwcE0N1XDDMMrG";
-                            String link = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey="+apiKey+"&term="+sString;
-                            URL url = new URL(link);
-                            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        @Override
+                        protected void onPreExecute() {
+                        }
+
+                        protected String doInBackground(Void... urls) {
                             try {
-                                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                                StringBuilder stringBuilder = new StringBuilder();
-                                String line;
-                                while ((line = bufferedReader.readLine()) != null) {
-                                    stringBuilder.append(line).append("\n");
+                                String apiKey = "bRhGutftGrzmjS21sLPwcE0N1XDDMMrG";
+                                String link = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=" + apiKey + "&term=" + sString;
+                                URL url = new URL(link);
+                                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                                try {
+                                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    String line;
+                                    while ((line = bufferedReader.readLine()) != null) {
+                                        stringBuilder.append(line).append("\n");
+                                    }
+                                    bufferedReader.close();
+                                    //System.out.println(stringBuilder.toString());
+                                    return stringBuilder.toString();
+                                } finally {
+                                    urlConnection.disconnect();
                                 }
-                                bufferedReader.close();
-                                //System.out.println(stringBuilder.toString());
-                                return stringBuilder.toString();
-                            }
-                            finally{
-                                urlConnection.disconnect();
+                            } catch (Exception e) {
+                                return null;
                             }
                         }
-                        catch(Exception e) {
-                            return null;
-                        }
-                    }
 
-                    protected void onPostExecute(String response) {
+                        protected void onPostExecute(String response) {
 
-                        try {
-                            // parse the json result returned from the service
-                            JSONArray jsonResult = new JSONArray(response);
-                            String[] values = new String[jsonResult.length()];
-                            for(int i = 0 ; i<jsonResult.length(); i++){
-                                String value = jsonResult.getJSONObject(i).getString("value");
-                                String label = jsonResult.getJSONObject(i).getString("label");
-                                values[i]= label;
+                            try {
+                                // parse the json result returned from the service
+                                JSONArray jsonResult = new JSONArray(response);
+                                String[] values = new String[jsonResult.length()];
+                                for (int i = 0; i < jsonResult.length(); i++) {
+                                    String value = jsonResult.getJSONObject(i).getString("value");
+                                    String label = jsonResult.getJSONObject(i).getString("label");
+                                    values[i] = label;
+                                }
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                                listView.setAdapter(adapter);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchAirportActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,values);
-                            listView.setAdapter(adapter);
-
-                           } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                }.execute();
+                    }.execute();
+                }else
+                    listView.setAdapter(null);
+
             }
 
             @Override
