@@ -217,7 +217,7 @@
                     android:layout_weight="1.17"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
-                    android:tint="@android:color/darker_gray" />
+                    android:tint="@color/colorAccent" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -227,7 +227,7 @@
                     android:layout_weight="1.17"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
-                    android:tint="@android:color/darker_gray" />
+                    android:tint="@color/colorAccent" />
             </LinearLayout>
         </LinearLayout>
 
