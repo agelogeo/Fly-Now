@@ -10,6 +10,9 @@ import java.util.Date;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,9 +24,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
     EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
     EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
     EditText fromText,destText,passengersText;
@@ -105,9 +110,72 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle("Passenger Selection");
                 dialog.setContentView(R.layout.fragment_blank);
                 dialog.show();
-
+                DialogListeners(dialog);
             }
         });
+    }
+
+
+    public void DialogListeners(Dialog dialog){
+        final ImageButton adult_minus = (ImageButton) dialog.findViewById(R.id.adult_minusBtn);
+        ImageButton kid_minus = (ImageButton) findViewById(R.id.kid_minus);
+        ImageButton baby_minus = (ImageButton) findViewById(R.id.baby_minus);
+
+        final ImageButton adult_plus = (ImageButton) dialog.findViewById(R.id.adult_plusBtn);
+        ImageButton kid_plus = (ImageButton) findViewById(R.id.kid_plus);
+        ImageButton baby_plus = (ImageButton) findViewById(R.id.baby_plus);
+
+        final TextView adult_text = (TextView) dialog.findViewById(R.id.adult_text);
+        TextView kid_text = (TextView) findViewById(R.id.kid_text);
+        TextView baby_text = (TextView) findViewById(R.id.baby_text);
+
+        adult_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p+1,kid_p,baby_p)){
+                    if(adult_p+1+kid_p>max_p)
+                        kid_p--;
+                    adult_p++;
+                    adult_text.setText(String.valueOf(adult_p));
+                    if(adult_p>1)
+                        adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                    if(adult_p==max_p)
+                        adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+            }
+            }
+        });
+
+        adult_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p-1,kid_p,baby_p)) {
+                    if(adult_p-1<baby_p)
+                        baby_p--;
+                    adult_p--;
+                    adult_text.setText(String.valueOf(adult_p));
+                    if(adult_p==1)
+                        adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    if(adult_p<max_p)
+                        adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                }
+            }
+        });
+
+    }
+
+    public boolean isValidMove(int adult, int kid, int baby){
+        if(baby > adult)
+            return false;
+        if(adult>max_p)
+            return false;
+        if(kid>0 && adult==0)
+            return false;
+        if(kid>=max_p)
+            return false;
+        if(adult<=0 || kid<0 || baby<0)
+            return false;
+
+        return true;
     }
 
 

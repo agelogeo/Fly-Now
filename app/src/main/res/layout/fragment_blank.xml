@@ -33,14 +33,15 @@
                 <ImageButton
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/minus_icon"
-                    android:id="@+id/adult_minus"
+                    android:id="@+id/adult_minusBtn"
                     android:background="@android:color/transparent"
                     android:layout_weight="1.48"
                     android:elevation="0dp"
                     android:adjustViewBounds="false"
                     android:cropToPadding="false"
                     android:scaleType="fitCenter"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    android:tint="@android:color/darker_gray" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -49,7 +50,8 @@
                     android:id="@+id/kid_minus"
                     android:layout_weight="1.48"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -58,7 +60,8 @@
                     android:id="@+id/baby_minus"
                     android:layout_weight="1.48"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
 
             </LinearLayout>
 
@@ -83,7 +86,8 @@
                     android:elevation="0dp"
                     android:textAllCaps="false"
                     android:elegantTextHeight="false"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:text="0"
@@ -95,7 +99,8 @@
                     android:textAlignment="center"
                     android:textStyle="normal|bold"
                     android:textAllCaps="false"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
 
                 <TextView
                     android:text="0"
@@ -106,7 +111,8 @@
                     android:textStyle="normal|bold"
                     android:textSize="30sp"
                     android:textAlignment="center"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,7 +128,8 @@
                     app:srcCompat="@drawable/adult_icon"
                     android:id="@+id/adult_icon"
                     android:layout_weight="0.49"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/black" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -130,7 +137,8 @@
                     app:srcCompat="@drawable/kid_icon"
                     android:id="@+id/kid_icon"
                     android:layout_weight="0.49"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/darker_gray" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -138,7 +146,8 @@
                     app:srcCompat="@drawable/baby_icon"
                     android:id="@+id/baby_icon"
                     android:layout_weight="0.49"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/darker_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +166,8 @@
                     android:textAlignment="center"
                     android:textStyle="normal|bold"
                     android:textSize="14sp"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@color/colorAccent" />
 
                 <TextView
                     android:text="(2-12)"
@@ -167,7 +177,8 @@
                     android:layout_weight="0.33"
                     android:textStyle="normal|bold"
                     android:textAlignment="center"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
 
                 <TextView
                     android:text="(0-2)"
@@ -177,7 +188,8 @@
                     android:layout_weight="0.35"
                     android:textStyle="normal|bold"
                     android:textAlignment="center"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -191,10 +203,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/p_icon"
-                    android:id="@+id/adult_plus"
+                    android:id="@+id/adult_plusBtn"
                     android:layout_weight="1.24"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorAccent" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -203,7 +216,8 @@
                     android:id="@+id/kid_plus"
                     android:layout_weight="1.17"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -212,7 +226,8 @@
                     android:id="@+id/baby_plus"
                     android:layout_weight="1.17"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
             </LinearLayout>
         </LinearLayout>
 
