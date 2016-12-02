@@ -118,16 +118,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void DialogListeners(Dialog dialog){
         final ImageButton adult_minus = (ImageButton) dialog.findViewById(R.id.adult_minusBtn);
-        ImageButton kid_minus = (ImageButton) findViewById(R.id.kid_minus);
-        ImageButton baby_minus = (ImageButton) findViewById(R.id.baby_minus);
+        ImageButton kid_minus = (ImageButton) dialog.findViewById(R.id.kid_minus);
+        ImageButton baby_minus = (ImageButton) dialog.findViewById(R.id.baby_minus);
 
         final ImageButton adult_plus = (ImageButton) dialog.findViewById(R.id.adult_plusBtn);
-        ImageButton kid_plus = (ImageButton) findViewById(R.id.kid_plus);
-        ImageButton baby_plus = (ImageButton) findViewById(R.id.baby_plus);
+        ImageButton kid_plus = (ImageButton) dialog.findViewById(R.id.kid_plus);
+        ImageButton baby_plus = (ImageButton) dialog.findViewById(R.id.baby_plus);
 
         final TextView adult_text = (TextView) dialog.findViewById(R.id.adult_text);
-        TextView kid_text = (TextView) findViewById(R.id.kid_text);
-        TextView baby_text = (TextView) findViewById(R.id.baby_text);
+        TextView kid_text = (TextView) dialog.findViewById(R.id.kid_text);
+        TextView baby_text = (TextView) dialog.findViewById(R.id.baby_text);
 
         adult_plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 
