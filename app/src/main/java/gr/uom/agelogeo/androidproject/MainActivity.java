@@ -8,12 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,13 +21,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
     EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
     EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
     EditText fromText,destText,passengersText;
+    TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
     Switch directflightswitch,flexdayswitch;
     Button searchflightsbtn ;
@@ -46,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
         passengersText = (EditText) findViewById(R.id.passengersText);
+        passengersNumber = (TextView) findViewById(R.id.passengersNumber);
         directflightswitch = (Switch) findViewById(R.id.directflightswitch);
         flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
         searchflightsbtn = (Button)findViewById(R.id.search_flights_btn);
@@ -107,8 +104,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setTitle("Passenger Selection");
-                dialog.setContentView(R.layout.fragment_blank);
+                dialog.setTitle(R.string.passenger_selection_title);
+                dialog.setContentView(R.layout.custom_dialog);
+                adult_p=1;
+                kid_p=0;
+                baby_p=0;
                 dialog.show();
                 DialogListeners(dialog);
             }
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void DialogListeners(Dialog dialog){
+    public void DialogListeners(final Dialog dialog){
         final ImageButton adult_minus = (ImageButton) dialog.findViewById(R.id.adult_minusBtn);
         final ImageButton kid_minus = (ImageButton) dialog.findViewById(R.id.kid_minus);
         final ImageButton baby_minus = (ImageButton) dialog.findViewById(R.id.baby_minus);
@@ -233,7 +233,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button confirmbtn = (Button) dialog.findViewById(R.id.confirmBtn);
 
+        confirmbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((adult_p+kid_p+baby_p)!=1) {
+                    passengersText.setText(getString(R.string.passengers_plurar));
+                    passengersNumber.setText(String.valueOf(adult_p + kid_p + baby_p));
+                }else {
+                    passengersText.setText(getString(R.string.passengers_single));
+                    passengersNumber.setText(String.valueOf(adult_p + kid_p + baby_p));
+                }
+                dialog.dismiss();
+            }
+        });
 
     }
 

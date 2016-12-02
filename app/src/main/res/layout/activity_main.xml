@@ -52,7 +52,7 @@
                         android:ems="10"
                         android:id="@+id/fromText"
                         android:focusableInTouchMode="false"
-                        android:hint="Από" />
+                        android:hint="@string/from" />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:ems="10"
                         android:id="@+id/destText"
                         android:focusableInTouchMode="false"
-                        android:hint="Πρός" />
+                        android:hint="@string/To" />
 
                 </LinearLayout>
 
@@ -79,7 +79,7 @@
             </LinearLayout>
 
             <Switch
-                android:text="ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ"
+                android:text="@string/directflightswitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/directflightswitch"
@@ -118,7 +118,7 @@
                         android:focusableInTouchMode="false"
                         android:ems="10"
                         android:id="@+id/departureDate"
-                        android:hint="Ημερομηνία Αναχώρησης" />
+                        android:hint="@string/departureDate" />
 
 
                     <LinearLayout
@@ -134,7 +134,7 @@
                             android:id="@+id/returnDate"
                             android:focusableInTouchMode="false"
                             android:singleLine="true"
-                            android:hint="Ημερομηνία Επιστροφής"
+                            android:hint="@string/arrivalDate"
                             android:layout_weight="1" />
 
                         <ImageButton
@@ -151,7 +151,7 @@
             </LinearLayout>
 
             <Switch
-                android:text="+/- 3 Ημερών"
+                android:text="@string/flexibledayswitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/flexdayswitch"
@@ -197,14 +197,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/passengersText"
-                    android:focusableInTouchMode="false"
-                    android:hint="1 Επιβάτης" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="1"
+                        android:layout_width="44dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/passengersNumber"
+                        android:textStyle="normal|bold"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:layout_width="185dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/passengersText"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/passengers_single" />
+                </LinearLayout>
 
                 <Spinner
                     android:layout_width="match_parent"
@@ -223,7 +240,7 @@
             android:id="@+id/lineBottom" />
 
         <Button
-            android:text="Αναζήτηση Πτήσεων"
+            android:text="@string/searchflightsbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/search_flights_btn" />

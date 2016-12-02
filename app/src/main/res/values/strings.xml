@@ -3,13 +3,31 @@
 
 
     <string-array name="ticket_plan">
-        <item>All Cabin Classes</item>
-        <item>Economy</item>
-        <item>Economy Premium</item>
-        <item>Business</item>
-        <item>First</item>
+        <item>@string/all_cabin_classes</item>
+        <item>@string/economy</item>
+        <item>@string/economy_premium</item>
+        <item>@string/business</item>
+        <item>@string/first</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_cabin_classes">Όλες οι ταξιδιωτικές θέσεις</string>
+    <string name="economy">Οικονομική</string>
+    <string name="economy_premium">Οικονομική προνομιακή</string>
+    <string name="business">Επαγγελματική</string>
+    <string name="first">Πρώτη</string>
+
+    <string name="passenger_selection_title">Επιλογή επιβατών</string>
+    <string name="from">Από</string>
+    <string name="To">Πρός</string>
+    <string name="directflightswitch">ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ</string>
+    <string name="departureDate">Ημερομηνία Αναχώρησης</string>
+    <string name="arrivalDate">Ημερομηνία Επιστροφής</string>
+    <string name="flexibledayswitch">+/- 3 Ημερών</string>
+    <string name="passengers_initial">1 Επιβάτης</string>
+    <string name="passengers_plurar"> Επιβάτες</string>
+    <string name="passengers_single"> Επιβάτης</string>
+    <string name="searchflightsbtn">Αναζήτηση Πτήσεων</string>
+    <string name="searchtextforairports">Αναζήτηση...</string>
+    <string name="confirmbtn">Επιβεβαίωση</string>
 </resources>

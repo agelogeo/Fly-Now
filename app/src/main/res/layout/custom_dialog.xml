@@ -237,25 +237,13 @@
             android:id="@+id/line3"
             android:layout_height="3dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:text="@string/confirmbtn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmBtn"
+            android:layout_weight="1" />
 
-            <Button
-                android:text="Cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cancelBtn"
-                android:layout_weight="1" />
-
-            <Button
-                android:text="Comfirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/comfirmBtn"
-                android:layout_weight="1" />
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
