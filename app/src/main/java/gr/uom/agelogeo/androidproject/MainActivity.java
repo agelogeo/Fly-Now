@@ -23,12 +23,11 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
-    EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
-    EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
+    EditText departureText;
+    EditText returnText ;
     EditText fromText,destText,passengersText;
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
@@ -105,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setTitle(R.string.passenger_selection_title);
                 dialog.setContentView(R.layout.custom_dialog);
-                /*adult_p=1;
-                kid_p=0;
-                baby_p=0;*/
                 dialog.show();
                 DialogListeners(dialog);
             }

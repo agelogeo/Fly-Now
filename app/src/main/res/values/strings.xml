@@ -30,4 +30,8 @@
     <string name="searchflightsbtn">Αναζήτηση Πτήσεων</string>
     <string name="searchtextforairports">Αναζήτηση...</string>
     <string name="confirmbtn">Επιβεβαίωση</string>
+
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
