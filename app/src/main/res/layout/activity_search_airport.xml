@@ -21,7 +21,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/searchbox"
-            android:hint="Αναζήτηση..." />
+            android:hint="@string/searchtextforairports" />
 
         <ListView
             android:layout_width="match_parent"

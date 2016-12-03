@@ -9,20 +9,31 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+    int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
     EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
     EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
-    EditText fromText,destText;
+    EditText fromText,destText,passengersText;
+    TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
+    Switch directflightswitch,flexdayswitch;
+    Button searchflightsbtn ;
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
@@ -30,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
+        passengersText = (EditText) findViewById(R.id.passengersText);
+        passengersNumber = (TextView) findViewById(R.id.passengersNumber);
+        directflightswitch = (Switch) findViewById(R.id.directflightswitch);
+        flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
+        searchflightsbtn = (Button)findViewById(R.id.search_flights_btn);
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
         month_x=cal.get(Calendar.MONTH);
@@ -50,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
                 startActivityForResult(i, 1);
-                //System.out.println(intent.getStringExtra("item"));
-
             }
         });
 
@@ -61,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
                 startActivityForResult(i, 2);
-                //System.out.println(intent.getStringExtra("item"));
-
-            }
+             }
         });
 
         swapAirports = (ImageButton) findViewById(R.id.swapAirports);
@@ -84,6 +97,223 @@ public class MainActivity extends AppCompatActivity {
                     returnText.getText().clear();
             }
         });
+
+
+        passengersText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setTitle(R.string.passenger_selection_title);
+                dialog.setContentView(R.layout.custom_dialog);
+                /*adult_p=1;
+                kid_p=0;
+                baby_p=0;*/
+                dialog.show();
+                DialogListeners(dialog);
+            }
+        });
+    }
+
+
+    public void DialogListeners(final Dialog dialog){
+        final ImageButton adult_minus = (ImageButton) dialog.findViewById(R.id.adult_minusBtn);
+        final ImageButton kid_minus = (ImageButton) dialog.findViewById(R.id.kid_minus);
+        final ImageButton baby_minus = (ImageButton) dialog.findViewById(R.id.baby_minus);
+
+        final ImageButton adult_plus = (ImageButton) dialog.findViewById(R.id.adult_plusBtn);
+        final ImageButton kid_plus = (ImageButton) dialog.findViewById(R.id.kid_plus);
+        final ImageButton baby_plus = (ImageButton) dialog.findViewById(R.id.baby_plus);
+
+        final TextView adult_text = (TextView) dialog.findViewById(R.id.adult_text);
+        final TextView kid_text = (TextView) dialog.findViewById(R.id.kid_text);
+        final TextView baby_text = (TextView) dialog.findViewById(R.id.baby_text);
+
+        final TextView kidage = (TextView) dialog.findViewById(R.id.kid_age);
+        final ImageView kidIcon = (ImageView) dialog.findViewById(R.id.kid_icon) ;
+        final TextView babyage = (TextView) dialog.findViewById(R.id.baby_age);
+        final ImageView babyIcon = (ImageView) dialog.findViewById(R.id.baby_icon) ;
+
+        adult_text.setText(String.valueOf(adult_p));
+        kid_text.setText(String.valueOf(kid_p));
+        baby_text.setText(String.valueOf(baby_p));
+
+        if(adult_p > 1)
+            adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+        if(adult_p == 1)
+            adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(adult_p == max_p)
+            adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(kid_p > 0) {
+            kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+        }if(kid_p + adult_p == max_p)
+            kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(baby_p>0) {
+            babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+        }if(baby_p == adult_p)
+            baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+
+
+
+
+        adult_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p+1,kid_p,baby_p)){
+                    if(adult_p+1+kid_p>max_p) {
+                        kid_p--;
+                        kid_text.setText(String.valueOf(kid_p));
+                        if(kid_p==0) {
+                            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                            kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        }
+                    }
+                    if (adult_p+1+kid_p==max_p)
+                        kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    adult_p++;
+                    adult_text.setText(String.valueOf(adult_p));
+                    if(adult_p>1)
+                        adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                    if(adult_p==max_p)
+                        adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    if(adult_p>baby_p)
+                        baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                }
+            }
+        });
+
+        adult_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isValidMove(adult_p - 1, kid_p, baby_p) || isValidMove(adult_p - 1, kid_p, baby_p-1)) {
+                        if(baby_p>adult_p-1) {
+                            baby_p--;
+                            baby_text.setText(String.valueOf(baby_p));
+                            baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        }
+                        kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                        if(baby_p==adult_p-1)
+                            baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        adult_p--;
+                        adult_text.setText(String.valueOf(adult_p));
+                        if (adult_p == 1)
+                            adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        if (adult_p < max_p)
+                            adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                }
+            }
+        });
+
+        kid_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p,kid_p+1,baby_p)){
+                    if(kid_p+1+adult_p<=max_p) {
+                        kid_p++;
+                        kid_text.setText(String.valueOf(kid_p));
+                        if (kid_p > 0) {
+                            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                            kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                        }
+                        if (kid_p + adult_p == max_p)
+                            kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    }
+                }
+            }
+        });
+
+        kid_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isValidMove(adult_p , kid_p - 1 , baby_p)){
+                    kid_p--;
+                    kid_text.setText(String.valueOf(kid_p));
+                    if (kid_p == 0) {
+                        kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    }
+                    if (kid_p+adult_p < max_p)
+                        kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                }
+            }
+        });
+
+        baby_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p,kid_p,baby_p+1)){
+                    baby_p++;
+                    baby_text.setText(String.valueOf(baby_p));
+                    if (baby_p == adult_p)
+                        baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    if ( baby_p > 0) {
+                        babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                        babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                        baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                        baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                    }
+                }
+            }
+        });
+
+        baby_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isValidMove(adult_p,kid_p,baby_p-1)) {
+                    baby_p--;
+                    baby_text.setText(String.valueOf(baby_p));
+                    if(baby_p<adult_p)
+                        baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                    if(baby_p==0) {
+                        babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    }
+                }
+            }
+        });
+
+        Button confirmbtn = (Button) dialog.findViewById(R.id.confirmBtn);
+        confirmbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((adult_p+kid_p+baby_p)!=1) {
+                    passengersText.setText(getString(R.string.passengers_plurar));
+                    passengersNumber.setText(String.valueOf(adult_p + kid_p + baby_p));
+                }else {
+                    passengersText.setText(getString(R.string.passengers_single));
+                    passengersNumber.setText(String.valueOf(adult_p + kid_p + baby_p));
+                }
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public boolean isValidMove(int adult, int kid, int baby){
+        if(baby > adult)
+            return false;
+        if(adult>max_p)
+            return false;
+        if(kid>0 && adult==0)
+            return false;
+        if(kid>=max_p)
+            return false;
+        if(adult<=0 || kid<0 || baby<0)
+            return false;
+
+        return true;
     }
 
 

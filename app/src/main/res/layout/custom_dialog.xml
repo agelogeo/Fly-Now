@@ -1,0 +1,249 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.BlankFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/line3"
+            android:layout_height="3dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:id="@+id/minus_layout"
+                android:layout_weight="0.35">
+
+                <ImageButton
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/minus_icon"
+                    android:id="@+id/adult_minusBtn"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1.48"
+                    android:elevation="0dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:tint="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/minus_icon"
+                    android:id="@+id/kid_minus"
+                    android:layout_weight="1.48"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/minus_icon"
+                    android:id="@+id/baby_minus"
+                    android:layout_weight="1.48"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/numbers_layout"
+                android:layout_weight="0.19">
+
+                <TextView
+                    android:text="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/adult_text"
+                    android:layout_weight="0.75"
+                    android:textAlignment="center"
+                    android:textStyle="normal|bold"
+                    android:textSize="30sp"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingExtra="18sp"
+                    android:elevation="0dp"
+                    android:textAllCaps="false"
+                    android:elegantTextHeight="false"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:text="0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/kid_text"
+                    android:layout_weight="0.75"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    android:textStyle="normal|bold"
+                    android:textAllCaps="false"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:text="0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baby_text"
+                    android:layout_weight="0.75"
+                    android:textStyle="normal|bold"
+                    android:textSize="30sp"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/icons_layout"
+                android:layout_weight="0.25">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/adult_icon"
+                    android:id="@+id/adult_icon"
+                    android:layout_weight="0.49"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/black" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/kid_icon"
+                    android:id="@+id/kid_icon"
+                    android:layout_weight="0.49"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/darker_gray" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/baby_icon"
+                    android:id="@+id/baby_icon"
+                    android:layout_weight="0.49"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:tint="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ages_layout"
+                android:layout_weight="0.17">
+
+                <TextView
+                    android:text="(12+)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/adult_age"
+                    android:layout_weight="0.35"
+                    android:textAlignment="center"
+                    android:textStyle="normal|bold"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:text="(2-12)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/kid_age"
+                    android:layout_weight="0.33"
+                    android:textStyle="normal|bold"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:text="(0-2)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/baby_age"
+                    android:layout_weight="0.35"
+                    android:textStyle="normal|bold"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:id="@+id/plus_layout"
+                android:layout_weight="0.03">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/p_icon"
+                    android:id="@+id/adult_plusBtn"
+                    android:layout_weight="1.24"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorAccent" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/p_icon"
+                    android:id="@+id/kid_plus"
+                    android:layout_weight="1.17"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorAccent" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/p_icon"
+                    android:id="@+id/baby_plus"
+                    android:layout_weight="1.17"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorAccent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/line3"
+            android:layout_height="3dp" />
+
+        <Button
+            android:text="@string/confirmbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmBtn"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>
