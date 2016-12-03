@@ -167,7 +167,7 @@
                     android:textStyle="normal|bold"
                     android:textSize="14sp"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:text="(2-12)"

@@ -19,8 +19,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
@@ -64,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
                 startActivityForResult(i, 1);
-                //System.out.println(intent.getStringExtra("item"));
-
             }
         });
 
@@ -75,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
                 startActivityForResult(i, 2);
-                //System.out.println(intent.getStringExtra("item"));
-
-            }
+             }
         });
 
         swapAirports = (ImageButton) findViewById(R.id.swapAirports);
@@ -106,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setTitle(R.string.passenger_selection_title);
                 dialog.setContentView(R.layout.custom_dialog);
-                adult_p=1;
+                /*adult_p=1;
                 kid_p=0;
-                baby_p=0;
+                baby_p=0;*/
                 dialog.show();
                 DialogListeners(dialog);
             }
@@ -129,6 +128,39 @@ public class MainActivity extends AppCompatActivity {
         final TextView kid_text = (TextView) dialog.findViewById(R.id.kid_text);
         final TextView baby_text = (TextView) dialog.findViewById(R.id.baby_text);
 
+        final TextView kidage = (TextView) dialog.findViewById(R.id.kid_age);
+        final ImageView kidIcon = (ImageView) dialog.findViewById(R.id.kid_icon) ;
+        final TextView babyage = (TextView) dialog.findViewById(R.id.baby_age);
+        final ImageView babyIcon = (ImageView) dialog.findViewById(R.id.baby_icon) ;
+
+        adult_text.setText(String.valueOf(adult_p));
+        kid_text.setText(String.valueOf(kid_p));
+        baby_text.setText(String.valueOf(baby_p));
+
+        if(adult_p > 1)
+            adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+        if(adult_p == 1)
+            adult_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(adult_p == max_p)
+            adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(kid_p > 0) {
+            kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+        }if(kid_p + adult_p == max_p)
+            kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+        if(baby_p>0) {
+            babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+            baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+        }if(baby_p == adult_p)
+            baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+
+
+
+
         adult_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,8 +168,12 @@ public class MainActivity extends AppCompatActivity {
                     if(adult_p+1+kid_p>max_p) {
                         kid_p--;
                         kid_text.setText(String.valueOf(kid_p));
-                        if(kid_p==0)
+                        if(kid_p==0) {
+                            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
                             kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        }
                     }
                     if (adult_p+1+kid_p==max_p)
                         kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
@@ -149,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         adult_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
                     if(adult_p>baby_p)
                         baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-            }
+                }
             }
         });
 
@@ -182,8 +218,12 @@ public class MainActivity extends AppCompatActivity {
                     if(kid_p+1+adult_p<=max_p) {
                         kid_p++;
                         kid_text.setText(String.valueOf(kid_p));
-                        if (kid_p > 0)
+                        if (kid_p > 0) {
+                            kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                            kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                            kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
                             kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                        }
                         if (kid_p + adult_p == max_p)
                             kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
                     }
@@ -197,8 +237,12 @@ public class MainActivity extends AppCompatActivity {
                 if (isValidMove(adult_p , kid_p - 1 , baby_p)){
                     kid_p--;
                     kid_text.setText(String.valueOf(kid_p));
-                    if (kid_p == 0)
+                    if (kid_p == 0) {
+                        kidIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        kidage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        kid_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
                         kid_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    }
                     if (kid_p+adult_p < max_p)
                         kid_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
                 }
@@ -213,8 +257,12 @@ public class MainActivity extends AppCompatActivity {
                     baby_text.setText(String.valueOf(baby_p));
                     if (baby_p == adult_p)
                         baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
-                    if ( baby_p > 0)
+                    if ( baby_p > 0) {
+                        babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                        babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
+                        baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorBlack));
                         baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
+                    }
                 }
             }
         });
@@ -227,14 +275,17 @@ public class MainActivity extends AppCompatActivity {
                     baby_text.setText(String.valueOf(baby_p));
                     if(baby_p<adult_p)
                         baby_plus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-                    if(baby_p==0)
+                    if(baby_p==0) {
+                        babyIcon.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        babyage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                        baby_text.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
                         baby_minus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colordarkgray));
+                    }
                 }
             }
         });
 
         Button confirmbtn = (Button) dialog.findViewById(R.id.confirmBtn);
-
         confirmbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
     }
 
     public boolean isValidMove(int adult, int kid, int baby){
