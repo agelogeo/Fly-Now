@@ -113,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchFlights.class);
+                i.putExtra("origin","BOS");
+                i.putExtra("destination","LON");
+                i.putExtra("departure_date","2016-12-20");
+                i.putExtra("return_date","2016-12-22");
+                i.putExtra("adults",2);
+                i.putExtra("children",1);
+                i.putExtra("infants",1);
+                i.putExtra("nonstop",true);
+                i.putExtra("travel_class","ECONOMY");
                 startActivity(i);
             }
         });

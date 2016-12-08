@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_layout">
+
+        <TextView
+            android:text="RyanAir"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/airline"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:text="398 Euro"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/price"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itinerary_layout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/outbound_layout">
+
+            <TextView
+                android:text="SKG"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_origin"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <TextView
+                android:text="16:00"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_origin_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/to_right"
+                android:id="@+id/outbound_arrow"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="ATH"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_destination"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <TextView
+                android:text="16:45"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_destination_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/inbound_layout">
+
+            <TextView
+                android:text="ATH"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_origin"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <TextView
+                android:text="23:00"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_origin_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/to_left"
+                android:id="@+id/inbound_arrow"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="SKG"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_destination"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <TextView
+                android:text="23:50"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_destination_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bottom_layout">
+
+            <TextView
+                android:text="Θέση : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/travel_seat" />
+
+            <TextView
+                android:text="Οικονομική"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/travel_class"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="Διαθέσιμες : "
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/seats"
+                android:layout_weight="1"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:text="9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/available"
+                android:layout_weight="0.36" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
