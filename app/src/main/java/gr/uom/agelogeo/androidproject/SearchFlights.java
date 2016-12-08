@@ -48,10 +48,22 @@ public class SearchFlights extends AppCompatActivity {
             protected String doInBackground(Void... urls) {
                 try {
                     String apiKey = getString(R.string.apiKeySearch);
-                    String link = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+apiKey+"&origin="+origin+
-                            "&destination="+destination+"&departure_date="+departure_date+"&return_date="+return_date+"&adults="+adults+
-                            "&children="+children+"&infants="+infants+"&nonstop="+nonstop+"&travel_class="+travel_class+"&number_of_results=2";
+                    String link = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+apiKey+"&origin="+origin+"&currency=EUR"+
+                            "&destination="+destination+"&departure_date="+departure_date+"&adults="+adults+"&travel_class="+travel_class;
+
+                    if(!return_date.equals(""))
+                        link+="&return_date="+return_date;
+                    if(children>0)
+                        link+="&children="+children;
+                    if(infants>0)
+                        link+="&infants="+infants;
+                    if(nonstop)
+                        link+="&nonstop="+nonstop;
+                    if(false)
+                        link+="&number_of_results=10";
+
                     System.out.println(link);
+
                     URL url = new URL(link);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     try {
@@ -72,69 +84,66 @@ public class SearchFlights extends AppCompatActivity {
                 }
             }
             protected void onPostExecute(String response) {
+                ArrayList<ListviewItem> adapterList = new ArrayList<ListviewItem>();
+                boolean returnDate = false;
                 try {
                     // parse the json result returned from the service
                     JSONObject jsonResult = new JSONObject(response);
                     JSONArray results = (JSONArray) jsonResult.get("results");
-                    JSONObject result_one = results.getJSONObject(0);
-                    JSONArray itinerary = (JSONArray) result_one.get("itineraries");
-                    JSONObject itinerary_one = itinerary.getJSONObject(0);
-                    JSONObject outbound = itinerary_one.getJSONObject("outbound");
-                    JSONArray flights = (JSONArray) outbound.get("flights");
-                    JSONObject flight_one = flights.getJSONObject(0);
-                    System.out.println(flight_one.getString("departs_at"));
-                    System.out.println(flight_one.getString("arrives_at"));
-                    System.out.println(flight_one.getJSONObject("origin").getString("airport"));
-                    System.out.println(flight_one.getJSONObject("origin").getString("terminal"));
+                    int counter = 0;
+                    for(int i=0;i<results.length();i++){
+                        ListviewItem tempItem = new ListviewItem();
+                        JSONObject result = results.getJSONObject(i);
+                        JSONArray itinerary = (JSONArray) result.get("itineraries");
 
-                    ListviewItem tempItem = new ListviewItem();
-                    //Etoimazo to tempItem
-                    tempItem.setAirline("Ryanair");
-                    tempItem.setOutbound_origin("SKG");
-                    tempItem.setOutbound_origin_time("19:00");
-                    tempItem.setOutbound_destination("ATH");
-                    tempItem.setOutbound_destination_time("19:45");
-                    tempItem.setOutbound_available("11");
-                    tempItem.setOutbound_travel_class("ECONOMY");
-                    tempItem.setPrice("399 EURO");
-                    tempItem.setInbound_origin("ATH");
-                    tempItem.setInbound_origin_time("00:00");
-                    tempItem.setInbound_destination("SKG");
-                    tempItem.setInbound_destination_time("00:55");
-                    tempItem.setInbound_available("1");
-                    tempItem.setInbound_travel_class("ECONOMY");
+                        for(int j=0;j<itinerary.length();j++) {
+                            counter++;
 
-                    ListviewItem tempItem2 = new ListviewItem();
-                    //Etoimazo to tempItem2
-                    tempItem2.setAirline("Olympic Air");
-                    tempItem2.setOutbound_origin("SKG");
-                    tempItem2.setOutbound_origin_time("12:00");
-                    tempItem2.setOutbound_destination("ATH");
-                    tempItem2.setOutbound_destination_time("12:45");
-                    tempItem2.setOutbound_available("3");
-                    tempItem2.setOutbound_travel_class("ECONOMY PREMIUM");
-                    tempItem2.setPrice("419 EURO");
-                    tempItem2.setInbound_origin("ATH");
-                    tempItem2.setInbound_origin_time("09:00");
-                    tempItem2.setInbound_destination("SKG");
-                    tempItem2.setInbound_destination_time("09:55");
-                    tempItem2.setInbound_available("77");
-                    tempItem2.setInbound_travel_class("BUSINESS");
+                            JSONObject itinerary_one = itinerary.getJSONObject(j);
+                            JSONObject outbound = itinerary_one.getJSONObject("outbound");
+                            JSONArray out_flights = (JSONArray) outbound.get("flights");
 
+                            JSONObject out_flight = out_flights.getJSONObject(0);
 
-                    //Add sto arraylist<listviewitem> gia na to steilw sto telos sto adapter
+                            tempItem.setAirline(out_flight.getString("operating_airline"));
+                            tempItem.setPrice(result.getJSONObject("fare").getString("total_price")+" EURO");
+                            tempItem.setOutbound_origin(out_flight.getJSONObject("origin").getString("airport"));
+                            tempItem.setOutbound_origin_time((out_flight.getString("departs_at")).split("T")[1].trim());
 
-                    ArrayList<ListviewItem> listofitems = new ArrayList<ListviewItem>();
-                    listofitems.add(tempItem);
-                    listofitems.add(tempItem2);
+                            if(out_flights.length()>1){
+                                tempItem.setOutbound_destination(out_flights.getJSONObject(out_flights.length()-1).getJSONObject("destination").getString("airport"));
+                                tempItem.setOutbound_destination_time((out_flights.getJSONObject(out_flights.length()-1).getString("arrives_at")).split("T")[1].trim());
+                            }else {
+                                tempItem.setOutbound_destination(out_flight.getJSONObject("destination").getString("airport"));
+                                tempItem.setOutbound_destination_time((out_flight.getString("arrives_at")).split("T")[1].trim());
+                            }
+                            tempItem.setOutbound_travel_class(out_flight.getJSONObject("booking_info").getString("travel_class"));
+                            tempItem.setOutbound_available(out_flight.getJSONObject("booking_info").getString("seats_remaining"));
 
+                            if (itinerary_one.has("inbound")) {
+                                returnDate = true;
+                                JSONObject inbound = itinerary_one.getJSONObject("inbound");
+                                JSONArray in_flights = (JSONArray) inbound.get("flights");
+                                JSONObject in_flight = in_flights.getJSONObject(0);
 
-
-                    SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, listofitems , true);
+                                tempItem.setInbound_origin(in_flight.getJSONObject("origin").getString("airport"));
+                                tempItem.setInbound_origin_time((in_flight.getString("departs_at")).split("T")[1].trim());
+                                if(in_flights.length()>1){
+                                    tempItem.setInbound_destination(in_flights.getJSONObject(in_flights.length()-1).getJSONObject("destination").getString("airport"));
+                                    tempItem.setInbound_destination_time((in_flights.getJSONObject(in_flights.length()-1).getString("arrives_at")).split("T")[1].trim());
+                                }else {
+                                    tempItem.setInbound_destination(in_flight.getJSONObject("destination").getString("airport"));
+                                    tempItem.setInbound_destination_time((in_flight.getString("arrives_at")).split("T")[1].trim());
+                                }
+                                tempItem.setInbound_travel_class(in_flight.getJSONObject("booking_info").getString("travel_class"));
+                                tempItem.setInbound_available(in_flight.getJSONObject("booking_info").getString("seats_remaining"));
+                            }
+                            adapterList.add(tempItem);
+                        }
+                    }
+                    System.out.println("Counter : "+counter);
+                    SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                     listView.setAdapter(myAdapter);
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

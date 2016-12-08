@@ -18,7 +18,8 @@
             android:id="@+id/airline"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:textColor="@color/colorBlack" />
 
         <TextView
             android:text="398 Euro"
@@ -108,26 +109,24 @@
 
             <TextView
                 android:text="Οικονομική"
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/outbound_travel_class"
-                android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_weight="0.09" />
 
             <TextView
                 android:text="Διαθέσιμες : "
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/outbound_seats"
-                android:textAlignment="textEnd"
-                android:layout_weight="0.25" />
+                android:textAlignment="textEnd" />
 
             <TextView
                 android:text="9"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/outbound_available"
-                android:layout_weight="0.26"
-                android:textColor="@color/priceColor" />
+                android:textColor="@color/priceColor"
+                android:layout_width="35dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,7 +188,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/inbound_bottom_layout">
+            android:id="@+id/inbound_bottom_layout"
+            android:weightSum="1">
 
             <TextView
                 android:text="Θέση : "
@@ -200,24 +200,22 @@
             <TextView
                 android:text="Οικονομική προνομιακή"
                 android:id="@+id/inbound_travel_class"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_weight="1.05" />
 
             <TextView
                 android:text="Διαθέσιμες : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/inbound_seats"
-                android:layout_weight="1"
                 android:textAlignment="textEnd" />
 
             <TextView
                 android:text="13"
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/inbound_available"
-                android:layout_weight="0.62"
                 android:textColor="@color/priceColor" />
         </LinearLayout>
 

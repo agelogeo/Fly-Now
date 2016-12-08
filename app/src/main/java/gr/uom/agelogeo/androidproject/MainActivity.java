@@ -113,14 +113,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchFlights.class);
-                i.putExtra("origin","BOS");
-                i.putExtra("destination","LON");
-                i.putExtra("departure_date","2016-12-20");
-                i.putExtra("return_date","2016-12-22");
-                i.putExtra("adults",2);
-                i.putExtra("children",1);
-                i.putExtra("infants",1);
-                i.putExtra("nonstop",true);
+                i.putExtra("origin","SKG");
+                i.putExtra("destination","FRA");
+                i.putExtra("departure_date","2016-12-22");
+                i.putExtra("return_date","2016-12-28");
+                i.putExtra("adults",1);
+                i.putExtra("children",0);
+                i.putExtra("infants",0);
+                i.putExtra("nonstop",false);
                 i.putExtra("travel_class","ECONOMY");
                 startActivity(i);
             }
@@ -364,7 +364,6 @@ public class MainActivity extends AppCompatActivity {
                         if(departureD.after(returnD))
                             returnText.setText("");
                     }
-
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -404,7 +403,6 @@ public class MainActivity extends AppCompatActivity {
                 showDialog(DEPARTURE_DATE_ID);
             }
         });
-
         returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
