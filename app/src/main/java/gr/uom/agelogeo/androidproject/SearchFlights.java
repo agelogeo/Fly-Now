@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -15,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class SearchFlights extends AppCompatActivity {
 
@@ -86,24 +86,54 @@ public class SearchFlights extends AppCompatActivity {
                     System.out.println(flight_one.getString("arrives_at"));
                     System.out.println(flight_one.getJSONObject("origin").getString("airport"));
                     System.out.println(flight_one.getJSONObject("origin").getString("terminal"));
-                   /* JSONArray outbound_flights = outbound.getJSONArray("flights");
-                    String test = outbound_flights.getString(0);
-                    System.out.println(test);*/
+
+                    ListviewItem tempItem = new ListviewItem();
+                    //Etoimazo to tempItem
+                    tempItem.setAirline("Ryanair");
+                    tempItem.setOutbound_origin("SKG");
+                    tempItem.setOutbound_origin_time("19:00");
+                    tempItem.setOutbound_destination("ATH");
+                    tempItem.setOutbound_destination_time("19:45");
+                    tempItem.setOutbound_available("11");
+                    tempItem.setOutbound_travel_class("ECONOMY");
+                    tempItem.setPrice("399 EURO");
+                    tempItem.setInbound_origin("ATH");
+                    tempItem.setInbound_origin_time("00:00");
+                    tempItem.setInbound_destination("SKG");
+                    tempItem.setInbound_destination_time("00:55");
+                    tempItem.setInbound_available("1");
+                    tempItem.setInbound_travel_class("ECONOMY");
+
+                    ListviewItem tempItem2 = new ListviewItem();
+                    //Etoimazo to tempItem2
+                    tempItem2.setAirline("Olympic Air");
+                    tempItem2.setOutbound_origin("SKG");
+                    tempItem2.setOutbound_origin_time("12:00");
+                    tempItem2.setOutbound_destination("ATH");
+                    tempItem2.setOutbound_destination_time("12:45");
+                    tempItem2.setOutbound_available("3");
+                    tempItem2.setOutbound_travel_class("ECONOMY PREMIUM");
+                    tempItem2.setPrice("419 EURO");
+                    tempItem2.setInbound_origin("ATH");
+                    tempItem2.setInbound_origin_time("09:00");
+                    tempItem2.setInbound_destination("SKG");
+                    tempItem2.setInbound_destination_time("09:55");
+                    tempItem2.setInbound_available("77");
+                    tempItem2.setInbound_travel_class("BUSINESS");
+
+
+                    //Add sto arraylist<listviewitem> gia na to steilw sto telos sto adapter
+
+                    ArrayList<ListviewItem> listofitems = new ArrayList<ListviewItem>();
+                    listofitems.add(tempItem);
+                    listofitems.add(tempItem2);
 
 
 
+                    SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, listofitems , true);
+                    listView.setAdapter(myAdapter);
 
-                    //System.out.println(jsonResult);
 
-
-                   /*String[] values = new String[jsonResult.length()];
-                    for (int i = 0; i < jsonResult.length(); i++) {
-                        String value = jsonResult.getJSONObject(i).getString("value");
-                        String label = jsonResult.getJSONObject(i).getString("label");
-                        values[i] = label;
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                    listView.setAdapter(adapter);*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();
