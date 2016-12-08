@@ -31,7 +31,6 @@ public class SearchAirportActivity extends AppCompatActivity {
 
         EditText searchbox = (EditText) findViewById(R.id.searchbox);
         final ListView listView = (ListView) findViewById(R.id.listofAirports);
-
         searchbox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
