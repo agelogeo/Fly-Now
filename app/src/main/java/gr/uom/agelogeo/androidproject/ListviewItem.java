@@ -8,27 +8,35 @@ public class ListviewItem {
     String airline,price ;
     String outbound_origin,outbound_origin_time,outbound_destination,outbound_destination_time;
     String inbound_origin,inbound_origin_time,inbound_destination,inbound_destination_time;
-    String inbound_travel_class,inbound_available,outbound_travel_class,outbound_available;
+    String inbound_travel_class,inbound_available,outbound_travel_class,outbound_available,stops;
 
     public ListviewItem() {
     }
 
-    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available) {
+    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available, String stops) {
         this.airline = airline;
         this.price = price;
         this.outbound_origin = outbound_origin;
         this.outbound_origin_time = outbound_origin_time;
         this.outbound_destination = outbound_destination;
         this.outbound_destination_time = outbound_destination_time;
-        this.outbound_travel_class = outbound_travel_class;
-        this.outbound_available = outbound_available;
         this.inbound_origin = inbound_origin;
         this.inbound_origin_time = inbound_origin_time;
         this.inbound_destination = inbound_destination;
         this.inbound_destination_time = inbound_destination_time;
         this.inbound_travel_class = inbound_travel_class;
         this.inbound_available = inbound_available;
+        this.outbound_travel_class = outbound_travel_class;
+        this.outbound_available = outbound_available;
+        this.stops = stops;
+    }
 
+    public String getStops() {
+        return stops;
+    }
+
+    public void setStops(String stops) {
+        this.stops = stops;
     }
 
     public String getInbound_travel_class() {

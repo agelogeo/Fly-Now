@@ -13,23 +13,42 @@
 
         <TextView
             android:text="RyanAir"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:id="@+id/airline"
-            android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:textStyle="normal|bold"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/stops"
+            android:text="@string/stops"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.48" />
+
+        <TextView
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/stop_counter"
+            android:textAlignment="viewStart"
+            android:textStyle="normal|bold"
+            android:gravity="center_vertical|center_horizontal" />
 
         <TextView
             android:text="398 Euro"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/price"
-            android:layout_weight="1"
             android:gravity="right|center_vertical"
             android:textStyle="normal|bold"
-            android:textColor="@color/priceColor" />
+            android:textColor="@color/priceColor"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -111,7 +130,7 @@
                 android:text="Οικονομική"
                 android:layout_height="match_parent"
                 android:id="@+id/outbound_travel_class"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_weight="0.09" />
 
             <TextView
@@ -187,9 +206,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:id="@+id/inbound_bottom_layout"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_weight="1">
 
             <TextView
                 android:text="Θέση : "
@@ -202,12 +221,12 @@
                 android:id="@+id/inbound_travel_class"
                 android:layout_height="wrap_content"
                 android:layout_width="200dp"
-                android:layout_weight="1.05" />
+                android:layout_weight="1" />
 
             <TextView
                 android:text="Διαθέσιμες : "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/inbound_seats"
                 android:textAlignment="textEnd" />
 

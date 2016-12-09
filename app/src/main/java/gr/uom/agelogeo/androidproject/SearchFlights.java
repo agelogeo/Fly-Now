@@ -32,8 +32,10 @@ public class SearchFlights extends AppCompatActivity {
         final int infants = i.getIntExtra("infants",0);
         final boolean nonstop = i.getBooleanExtra("nonstop",false);
         final String travel_class = i.getStringExtra("travel_class");
-
-
+        if(adults+children+infants==1)
+            this.setTitle(departure_date+" - "+return_date+" | "+(adults+children+infants)+" "+getString(R.string.passengers_single));
+        else
+            this.setTitle(departure_date+" - "+return_date+" | "+(adults+children+infants)+" "+getString(R.string.passengers_plurar));
 
         final ListView listView = (ListView) findViewById(R.id.listview);
 
@@ -60,7 +62,7 @@ public class SearchFlights extends AppCompatActivity {
                     if(nonstop)
                         link+="&nonstop="+nonstop;
                     if(false)
-                        link+="&number_of_results=10";
+                        link+="&number_of_results=20";
 
                     System.out.println(link);
 
@@ -111,9 +113,11 @@ public class SearchFlights extends AppCompatActivity {
                             tempItem.setOutbound_origin_time((out_flight.getString("departs_at")).split("T")[1].trim());
 
                             if(out_flights.length()>1){
+                                tempItem.setStops(String.valueOf(out_flights.length()-1));
                                 tempItem.setOutbound_destination(out_flights.getJSONObject(out_flights.length()-1).getJSONObject("destination").getString("airport"));
                                 tempItem.setOutbound_destination_time((out_flights.getJSONObject(out_flights.length()-1).getString("arrives_at")).split("T")[1].trim());
                             }else {
+                                tempItem.setStops("0");
                                 tempItem.setOutbound_destination(out_flight.getJSONObject("destination").getString("airport"));
                                 tempItem.setOutbound_destination_time((out_flight.getString("arrives_at")).split("T")[1].trim());
                             }
@@ -137,6 +141,7 @@ public class SearchFlights extends AppCompatActivity {
                                 }
                                 tempItem.setInbound_travel_class(in_flight.getJSONObject("booking_info").getString("travel_class"));
                                 tempItem.setInbound_available(in_flight.getJSONObject("booking_info").getString("seats_remaining"));
+
                             }
                             adapterList.add(tempItem);
                         }

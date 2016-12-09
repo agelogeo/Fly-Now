@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         passengersText = (EditText) findViewById(R.id.passengersText);
         passengersNumber = (TextView) findViewById(R.id.passengersNumber);
         directflightswitch = (Switch) findViewById(R.id.directflightswitch);
-        flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
         searchflightsbtn = (Button)findViewById(R.id.search_flights_btn);
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
@@ -112,17 +112,23 @@ public class MainActivity extends AppCompatActivity {
         searchflightsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,SearchFlights.class);
-                i.putExtra("origin","SKG");
-                i.putExtra("destination","FRA");
-                i.putExtra("departure_date","2016-12-22");
-                i.putExtra("return_date","2016-12-28");
-                i.putExtra("adults",1);
-                i.putExtra("children",0);
-                i.putExtra("infants",0);
-                i.putExtra("nonstop",false);
-                i.putExtra("travel_class","ECONOMY");
-                startActivity(i);
+                if(fromText.getText().length()==0 || destText.getText().length()==0  || departureText.getText().length()==0 )
+                    Toast.makeText(MainActivity.this,getString(R.string.search_toast_empty), Toast.LENGTH_SHORT).show();
+                else if(fromText.getText().toString().equals(destText.getText().toString()))
+                    Toast.makeText(MainActivity.this, R.string.search_toast_same, Toast.LENGTH_SHORT).show();
+                else {
+                    Intent i = new Intent(MainActivity.this, SearchFlights.class);
+                    i.putExtra("origin", "SKG");
+                    i.putExtra("destination", "CHQ");
+                    i.putExtra("departure_date", "2017-02-14");
+                    i.putExtra("return_date", "2017-02-17");
+                    i.putExtra("adults", 2);
+                    i.putExtra("children", 0);
+                    i.putExtra("infants", 0);
+                    i.putExtra("nonstop", false);
+                    i.putExtra("travel_class", "ECONOMY");
+                    startActivity(i);
+                }
             }
         });
 

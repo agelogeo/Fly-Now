@@ -14,7 +14,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:baselineAligned="false"
         android:id="@+id/fullLayout">
 
@@ -33,11 +33,10 @@
                 android:id="@+id/destinationLayout">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="58dp"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/airplane"
-                    android:id="@+id/airplane_icon"
-                    android:layout_weight="0.50" />
+                    android:id="@+id/airplane_icon" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -149,13 +148,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <Switch
-                android:text="@string/flexibledayswitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/flexdayswitch"
-                android:textColor="@color/colorAccent" />
 
             <View
                 android:layout_width="match_parent"

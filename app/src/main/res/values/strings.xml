@@ -3,7 +3,6 @@
 
 
     <string-array name="ticket_plan">
-        <item>@string/all_cabin_classes</item>
         <item>@string/economy</item>
         <item>@string/economy_premium</item>
         <item>@string/business</item>
@@ -11,7 +10,6 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="all_cabin_classes">Όλες οι ταξιδιωτικές θέσεις</string>
     <string name="economy">Οικονομική</string>
     <string name="economy_premium">Οικονομική προνομιακή</string>
     <string name="business">Επαγγελματική</string>
@@ -30,8 +28,7 @@
     <string name="searchflightsbtn">Αναζήτηση Πτήσεων</string>
     <string name="searchtextforairports">Αναζήτηση...</string>
     <string name="confirmbtn">Επιβεβαίωση</string>
-
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="stops">"Στάσεις : "</string>
+    <string name="search_toast_empty">Παρακαλώ εισάγετε δεδομένα πρώτα</string>
+    <string name="search_toast_same">Δεν μπορείτε να βάλετε το ίδιο αεροδρόμιο.</string>
 </resources>
