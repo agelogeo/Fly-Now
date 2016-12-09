@@ -122,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1));
                     i.putExtra("origin", fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1).toString());
                     i.putExtra("destination", destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1).toString());
-                    i.putExtra("departure_date", "2017-02-14");
-                    i.putExtra("return_date", "2017-02-17");
+                    i.putExtra("departure_date", departureText.getText().toString());
+                    i.putExtra("return_date", returnText.getText().toString());
                     i.putExtra("adults", adult_p);
                     i.putExtra("children", kid_p);
                     i.putExtra("infants", baby_p);
-                    i.putExtra("nonstop", directflightswitch.isActivated());
+                    i.putExtra("nonstop", directflightswitch.isChecked());
                     i.putExtra("travel_class", "ECONOMY");
                     startActivity(i);
                 }
@@ -364,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
                     Date departureD = sdf.parse(s.toString());
                     if(returnText.getText().length()!=0) {
@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
                     Date returnD = sdf.parse(s.toString());
                     if(returnText.getText().length()!=0) {
@@ -437,7 +437,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
 
         public void onDateSet(DatePicker datePicker, int year, int month, int day ) {
-            departureText.setText(day+"/"+(month+1)+"/"+year);
+            Calendar cal = Calendar.getInstance();
+            cal.set(year,month,day);
+            Date date = cal.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            departureText.setText(formatter.format(date));
         }
     };
 
@@ -445,7 +449,11 @@ public class MainActivity extends AppCompatActivity {
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            returnText.setText(day+"/"+(month+1)+"/"+year);
+            Calendar cal = Calendar.getInstance();
+            cal.set(year,month,day);
+            Date date = cal.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            returnText.setText(formatter.format(date));
         }
     };
 }

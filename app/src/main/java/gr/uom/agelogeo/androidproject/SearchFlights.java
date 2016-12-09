@@ -16,7 +16,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SearchFlights extends AppCompatActivity {
 
@@ -32,19 +35,46 @@ public class SearchFlights extends AppCompatActivity {
         Intent i = this.getIntent();
         final String origin = i.getStringExtra("origin");
         final String destination = i.getStringExtra("destination");
-        final String departure_date = i.getStringExtra("departure_date");
-        final String return_date = i.getStringExtra("return_date");
+        String departure_date_temp = i.getStringExtra("departure_date");
+        String return_date_temp = i.getStringExtra("return_date");
         final int adults = i.getIntExtra("adults",1);
         final int children = i.getIntExtra("children",0);
         final int infants = i.getIntExtra("infants",0);
         final boolean nonstop = i.getBooleanExtra("nonstop",false);
         final String travel_class = i.getStringExtra("travel_class");
-        if(adults+children+infants==1)
-            this.setTitle(departure_date+" - "+return_date+" | "+(adults+children+infants)+" "+getString(R.string.passengers_single));
-        else
-            this.setTitle(departure_date+" - "+return_date+" | "+(adults+children+infants)+" "+getString(R.string.passengers_plurar));
-
         final ListView listView = (ListView) findViewById(R.id.listview);
+
+        //Set Activity Title
+        if(adults+children+infants==1)
+            this.setTitle((adults+children+infants)+" "+getString(R.string.passengers_single)+" | "+departure_date_temp.substring(0,6));
+        else
+            this.setTitle((adults+children+infants)+" "+getString(R.string.passengers_plurar)+" | "+departure_date_temp.substring(0,6));
+
+
+        //Change Date Format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+        try {
+            Date temp = sdf.parse(departure_date_temp);
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            departure_date_temp=sdf.format(temp).toString();
+        } catch (ParseException e) {
+            SearchFlights.this.finish();
+            e.printStackTrace();
+        }
+        sdf = new SimpleDateFormat("dd MMM yyyy");
+        if(!return_date_temp.equals("")){
+            this.setTitle(this.getTitle()+" - "+return_date_temp.substring(0,6));
+            try {
+                Date temp = sdf.parse(return_date_temp);
+                sdf = new SimpleDateFormat("yyyy-MM-dd");
+                return_date_temp=sdf.format(temp).toString();
+            } catch (ParseException e) {
+                SearchFlights.this.finish();
+                e.printStackTrace();
+            }
+        }
+        final String departure_date=departure_date_temp;
+        final String return_date=return_date_temp;
 
 
         new AsyncTask<Void, Void, String>() {
@@ -89,6 +119,9 @@ public class SearchFlights extends AppCompatActivity {
                         urlConnection.disconnect();
                     }
                 } catch (Exception e) {
+                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
+                    SearchFlights.this.finish();
+                    loadingDialog.dismiss();
                     return null;
                 }
             }
@@ -159,6 +192,8 @@ public class SearchFlights extends AppCompatActivity {
                     SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                     listView.setAdapter(myAdapter);
                 } catch (JSONException e) {
+                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
+                    SearchFlights.this.finish();
                     e.printStackTrace();
                 } catch (Exception e){
                     Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
