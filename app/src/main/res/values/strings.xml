@@ -31,4 +31,6 @@
     <string name="stops">"Στάσεις : "</string>
     <string name="search_toast_empty">Παρακαλώ εισάγετε δεδομένα πρώτα</string>
     <string name="search_toast_same">Δεν μπορείτε να βάλετε το ίδιο αεροδρόμιο.</string>
+    <string name="pleaseWait">Παρακαλούμε περιμένετε</string>
+    <string name="bestpricesText">Αναζητούμε τις καλύτερες τιμές...</string>
 </resources>

@@ -1,10 +1,12 @@
 package gr.uom.agelogeo.androidproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,11 @@ public class SearchFlights extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flights);
+        final ProgressDialog loadingDialog = new ProgressDialog(SearchFlights.this);
+        loadingDialog.setTitle(getString(R.string.pleaseWait));
+        loadingDialog.setMessage(getString(R.string.bestpricesText));
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
         Intent i = this.getIntent();
         final String origin = i.getStringExtra("origin");
         final String destination = i.getStringExtra("destination");
@@ -94,11 +101,12 @@ public class SearchFlights extends AppCompatActivity {
                     JSONArray results = (JSONArray) jsonResult.get("results");
                     int counter = 0;
                     for(int i=0;i<results.length();i++){
-                        ListviewItem tempItem = new ListviewItem();
+
                         JSONObject result = results.getJSONObject(i);
                         JSONArray itinerary = (JSONArray) result.get("itineraries");
 
                         for(int j=0;j<itinerary.length();j++) {
+                            ListviewItem tempItem = new ListviewItem();
                             counter++;
 
                             JSONObject itinerary_one = itinerary.getJSONObject(j);
@@ -147,10 +155,15 @@ public class SearchFlights extends AppCompatActivity {
                         }
                     }
                     System.out.println("Counter : "+counter);
+                    loadingDialog.dismiss();
                     SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                     listView.setAdapter(myAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } catch (Exception e){
+                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
+                    SearchFlights.this.finish();
+
                 }
             }
         }.execute();

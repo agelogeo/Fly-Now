@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText fromText,destText,passengersText;
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
-    Switch directflightswitch,flexdayswitch;
+    Switch directflightswitch;
     Button searchflightsbtn ;
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
@@ -118,14 +118,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, R.string.search_toast_same, Toast.LENGTH_SHORT).show();
                 else {
                     Intent i = new Intent(MainActivity.this, SearchFlights.class);
-                    i.putExtra("origin", "SKG");
-                    i.putExtra("destination", "CHQ");
+                    System.out.println(fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1));
+                    System.out.println(destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1));
+                    i.putExtra("origin", fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1).toString());
+                    i.putExtra("destination", destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1).toString());
                     i.putExtra("departure_date", "2017-02-14");
                     i.putExtra("return_date", "2017-02-17");
-                    i.putExtra("adults", 2);
-                    i.putExtra("children", 0);
-                    i.putExtra("infants", 0);
-                    i.putExtra("nonstop", false);
+                    i.putExtra("adults", adult_p);
+                    i.putExtra("children", kid_p);
+                    i.putExtra("infants", baby_p);
+                    i.putExtra("nonstop", directflightswitch.isActivated());
                     i.putExtra("travel_class", "ECONOMY");
                     startActivity(i);
                 }
