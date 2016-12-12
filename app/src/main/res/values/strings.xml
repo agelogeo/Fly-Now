@@ -35,4 +35,6 @@
     <string name="bestpricesText">Αναζητούμε τις καλύτερες τιμές...</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_list_view_detail">ListViewDetail</string>
+    <string name="notAvailableTickets">Δεν υπάρχουν διαθέσιμα εισιτήρια.</string>
 </resources>

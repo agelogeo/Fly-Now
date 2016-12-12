@@ -3,11 +3,15 @@ package gr.uom.agelogeo.androidproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,7 +30,7 @@ import java.util.Date;
 public class SearchFlights extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flights);
         final ProgressDialog loadingDialog = new ProgressDialog(SearchFlights.this);
@@ -60,8 +64,8 @@ public class SearchFlights extends AppCompatActivity {
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             departure_date_temp=sdf.format(temp).toString();
         } catch (ParseException e) {
-            SearchFlights.this.finish();
             e.printStackTrace();
+            SearchFlights.this.finish();
         }
         sdf = new SimpleDateFormat("dd MMM yyyy");
         if(!return_date_temp.equals("")){
@@ -71,8 +75,8 @@ public class SearchFlights extends AppCompatActivity {
                 sdf = new SimpleDateFormat("yyyy-MM-dd");
                 return_date_temp=sdf.format(temp).toString();
             } catch (ParseException e) {
-                SearchFlights.this.finish();
                 e.printStackTrace();
+                SearchFlights.this.finish();
             }
         }
         final String departure_date=departure_date_temp;
@@ -121,9 +125,8 @@ public class SearchFlights extends AppCompatActivity {
                         urlConnection.disconnect();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
-                    SearchFlights.this.finish();
                     loadingDialog.dismiss();
+                    SearchFlights.this.finish();
                     return null;
                 }
             }
@@ -132,6 +135,8 @@ public class SearchFlights extends AppCompatActivity {
                 boolean returnDate = false;
                 try {
                     // parse the json result returned from the service
+                    if(response==null)
+                        Toast.makeText(SearchFlights.this, R.string.notAvailableTickets, Toast.LENGTH_LONG).show();
                     JSONObject jsonResult = new JSONObject(response);
                     JSONArray results = (JSONArray) jsonResult.get("results");
                     int counter = 0;
@@ -204,19 +209,16 @@ public class SearchFlights extends AppCompatActivity {
                             i.putExtra("JSON_response",response);
                             i.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
                             i.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());*/
-                            Toast.makeText(SearchFlights.this,"Loading Master/Detail Flow...", Toast.LENGTH_SHORT).show();
+                            RelativeLayout ml = (RelativeLayout) findViewById(R.id.activity_search_flights);
+                            Snackbar.make(ml, "Loading Master/Detail Flow...", Snackbar.LENGTH_LONG).show();
+
                         }
                     });
 
-
-
-
                 } catch (JSONException e) {
-                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
                     SearchFlights.this.finish();
                     e.printStackTrace();
                 } catch (Exception e){
-                    Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
                     SearchFlights.this.finish();
 
                 }
