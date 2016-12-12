@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fly Now</string>
+    <string name="app_name" translatable="false">Fly Now</string>
 
 
     <string-array name="ticket_plan">
@@ -21,20 +21,18 @@
     <string name="directflightswitch">ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ</string>
     <string name="departureDate">Ημερομηνία Αναχώρησης</string>
     <string name="arrivalDate">Ημερομηνία Επιστροφής</string>
-    <string name="flexibledayswitch">+/- 3 Ημερών</string>
     <string name="passengers_initial">1 Επιβάτης</string>
     <string name="passengers_plurar"> Επιβάτες</string>
     <string name="passengers_single"> Επιβάτης</string>
     <string name="searchflightsbtn">Αναζήτηση Πτήσεων</string>
     <string name="searchtextforairports">Αναζήτηση...</string>
     <string name="confirmbtn">Επιβεβαίωση</string>
-    <string name="stops">"Στάσεις : "</string>
+    <string name="stops" translatable="false">"STOP :"</string>
     <string name="search_toast_empty">Παρακαλώ εισάγετε δεδομένα πρώτα</string>
     <string name="search_toast_same">Δεν μπορείτε να βάλετε το ίδιο αεροδρόμιο.</string>
     <string name="pleaseWait">Παρακαλούμε περιμένετε</string>
     <string name="bestpricesText">Αναζητούμε τις καλύτερες τιμές...</string>
-    <string name="title_item_list">Items</string>
-    <string name="title_item_detail">Item Detail</string>
-    <string name="title_activity_list_view_detail">ListViewDetail</string>
     <string name="notAvailableTickets">Δεν υπάρχουν διαθέσιμα εισιτήρια.</string>
+    <string name="multiAirlines">ΣΥΝΔΥΑΣΜΟΣ ΕΤΑΙΡΙΩΝ</string>
+    <string name="loadingYourData">Φορτώνουμε τα δεδομένα που ζητήσατε.</string>
 </resources>

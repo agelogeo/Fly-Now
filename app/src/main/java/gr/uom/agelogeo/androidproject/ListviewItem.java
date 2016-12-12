@@ -8,13 +8,13 @@ public class ListviewItem {
     String airline,price ;
     String outbound_origin,outbound_origin_time,outbound_destination,outbound_destination_time;
     String inbound_origin,inbound_origin_time,inbound_destination,inbound_destination_time;
-    String inbound_travel_class,inbound_available,outbound_travel_class,outbound_available,stops;
+    String inbound_travel_class,inbound_available,outbound_travel_class,outbound_available,out_stops,in_stops;
     int result_indicator,itinerary_indicator;
 
     public ListviewItem() {
     }
 
-    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available, String stops, int result_indicator, int itinerary_indicator) {
+    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available, String out_stops, String in_stops, int result_indicator, int itinerary_indicator) {
         this.airline = airline;
         this.price = price;
         this.outbound_origin = outbound_origin;
@@ -29,9 +29,26 @@ public class ListviewItem {
         this.inbound_available = inbound_available;
         this.outbound_travel_class = outbound_travel_class;
         this.outbound_available = outbound_available;
-        this.stops = stops;
+        this.out_stops = out_stops;
+        this.in_stops = in_stops;
         this.result_indicator = result_indicator;
         this.itinerary_indicator = itinerary_indicator;
+    }
+
+    public String getOut_stops() {
+        return out_stops;
+    }
+
+    public void setOut_stops(String out_stops) {
+        this.out_stops = out_stops;
+    }
+
+    public String getIn_stops() {
+        return in_stops;
+    }
+
+    public void setIn_stops(String in_stops) {
+        this.in_stops = in_stops;
     }
 
     public int getResult_indicator() {
@@ -48,14 +65,6 @@ public class ListviewItem {
 
     public void setItinerary_indicator(int itinerary_indicator) {
         this.itinerary_indicator = itinerary_indicator;
-    }
-
-    public String getStops() {
-        return stops;
-    }
-
-    public void setStops(String stops) {
-        this.stops = stops;
     }
 
     public String getInbound_travel_class() {

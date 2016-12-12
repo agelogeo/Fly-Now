@@ -16,12 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Properties;
 
 public class SearchAirportActivity extends AppCompatActivity {
     @Override
@@ -51,7 +48,7 @@ public class SearchAirportActivity extends AppCompatActivity {
 
                         protected String doInBackground(Void... urls) {
                             try {
-                                String apiKey = getString(R.string.apiKey);
+                                String apiKey = getString(R.string.AMADEUS_API_KEY);
                                 String link = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=" + apiKey + "&term=" + sString;
                                 URL url = new URL(link);
                                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

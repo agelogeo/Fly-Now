@@ -37,11 +37,13 @@ public class SearchFlightsAdapter extends ArrayAdapter<ListviewItem> {
         LinearLayout header = (LinearLayout) convertView.findViewById(R.id.header_layout);
         TextView airline = (TextView) header.findViewById(R.id.airline);
         TextView price = (TextView) header.findViewById(R.id.price);
-        TextView stop_counter = (TextView) header.findViewById(R.id.stop_counter);
+        TextView out_stop_counter = (TextView) convertView.findViewById(R.id.out_stop_c);
+        TextView in_stop_counter = (TextView) convertView.findViewById(R.id.in_stop_c);
         //Header
         airline.setText(listitem.getAirline());
         price.setText(listitem.getPrice());
-        stop_counter.setText(listitem.getStops());
+        out_stop_counter.setText(listitem.getOut_stops());
+        in_stop_counter.setText(listitem.getIn_stops());
 
         //Outbound inflates Itinerary layout
         LinearLayout outbound = (LinearLayout) convertView.findViewById(R.id.itinerary_layout).findViewById(R.id.outbound_layout);

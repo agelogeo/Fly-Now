@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".SearchAirportActivity" />
         <activity android:name=".SearchFlights" />
+        <activity android:name=".ListViewItemDetail"></activity>
     </application>
 
 </manifest>

@@ -3,15 +3,11 @@ package gr.uom.agelogeo.androidproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,13 +22,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class SearchFlights extends AppCompatActivity {
-
+    ArrayList<String> airline_codes = new ArrayList<String>();
+    ArrayList<String> airline_names = new ArrayList<String>();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flights);
+
         final ProgressDialog loadingDialog = new ProgressDialog(SearchFlights.this);
         loadingDialog.setTitle(getString(R.string.pleaseWait));
         loadingDialog.setMessage(getString(R.string.bestpricesText));
@@ -82,7 +81,6 @@ public class SearchFlights extends AppCompatActivity {
         final String departure_date=departure_date_temp;
         final String return_date=return_date_temp;
 
-
         new AsyncTask<Void, Void, String>() {
             private Exception exception;
 
@@ -92,7 +90,7 @@ public class SearchFlights extends AppCompatActivity {
 
             protected String doInBackground(Void... urls) {
                 try {
-                    String apiKey = getString(R.string.apiKeySearch);
+                    String apiKey = getString(R.string.AMADEUS_API_KEY);
                     String link = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey="+apiKey+"&origin="+origin+"&currency=EUR"+
                             "&destination="+destination+"&departure_date="+departure_date+"&adults="+adults+"&travel_class="+travel_class;
 
@@ -119,12 +117,13 @@ public class SearchFlights extends AppCompatActivity {
                             stringBuilder.append(line).append("\n");
                         }
                         bufferedReader.close();
-                        System.out.println(stringBuilder.toString());
+                        //System.out.println(stringBuilder.toString());
                         return stringBuilder.toString();
                     } finally {
                         urlConnection.disconnect();
                     }
                 } catch (Exception e) {
+                    System.out.println("ERROR : doInBackground");
                     loadingDialog.dismiss();
                     SearchFlights.this.finish();
                     return null;
@@ -134,9 +133,9 @@ public class SearchFlights extends AppCompatActivity {
                 final ArrayList<ListviewItem> adapterList = new ArrayList<ListviewItem>();
                 boolean returnDate = false;
                 try {
-                    // parse the json result returned from the service
                     if(response==null)
                         Toast.makeText(SearchFlights.this, R.string.notAvailableTickets, Toast.LENGTH_LONG).show();
+
                     JSONObject jsonResult = new JSONObject(response);
                     JSONArray results = (JSONArray) jsonResult.get("results");
                     int counter = 0;
@@ -148,6 +147,7 @@ public class SearchFlights extends AppCompatActivity {
                         for(int j=0;j<itinerary.length();j++) {
                             ListviewItem tempItem = new ListviewItem();
                             counter++;
+                            ArrayList<String> airlines = new ArrayList<String>();
 
                             JSONObject itinerary_one = itinerary.getJSONObject(j);
                             JSONObject outbound = itinerary_one.getJSONObject("outbound");
@@ -155,23 +155,27 @@ public class SearchFlights extends AppCompatActivity {
 
                             JSONObject out_flight = out_flights.getJSONObject(0);
 
-                            tempItem.setAirline(out_flight.getString("operating_airline"));
                             tempItem.setPrice(result.getJSONObject("fare").getString("total_price")+" EURO");
                             tempItem.setOutbound_origin(out_flight.getJSONObject("origin").getString("airport"));
                             tempItem.setOutbound_origin_time((out_flight.getString("departs_at")).split("T")[1].trim());
-
+                            String outbound_airline = null;
                             if(out_flights.length()>1){
-                                tempItem.setStops(String.valueOf(out_flights.length()-1));
+                                tempItem.setOut_stops(String.valueOf(out_flights.length()-1));
                                 tempItem.setOutbound_destination(out_flights.getJSONObject(out_flights.length()-1).getJSONObject("destination").getString("airport"));
                                 tempItem.setOutbound_destination_time((out_flights.getJSONObject(out_flights.length()-1).getString("arrives_at")).split("T")[1].trim());
+                                for(int z=0;z<out_flights.length();z++)
+                                    airlines.add(out_flights.getJSONObject(z).getString("operating_airline"));
+                                outbound_airline=TranslateAirline(airlines);
                             }else {
-                                tempItem.setStops("0");
+                                tempItem.setOut_stops("0");
                                 tempItem.setOutbound_destination(out_flight.getJSONObject("destination").getString("airport"));
                                 tempItem.setOutbound_destination_time((out_flight.getString("arrives_at")).split("T")[1].trim());
+                                airlines.add(out_flight.getString("operating_airline"));
+                                outbound_airline=TranslateAirline(airlines);
                             }
                             tempItem.setOutbound_travel_class(out_flight.getJSONObject("booking_info").getString("travel_class"));
                             tempItem.setOutbound_available(out_flight.getJSONObject("booking_info").getString("seats_remaining"));
-
+                            String inbound_airline = null;
                             if (itinerary_one.has("inbound")) {
                                 returnDate = true;
                                 JSONObject inbound = itinerary_one.getJSONObject("inbound");
@@ -180,17 +184,35 @@ public class SearchFlights extends AppCompatActivity {
 
                                 tempItem.setInbound_origin(in_flight.getJSONObject("origin").getString("airport"));
                                 tempItem.setInbound_origin_time((in_flight.getString("departs_at")).split("T")[1].trim());
+
                                 if(in_flights.length()>1){
+                                    tempItem.setIn_stops(String.valueOf(in_flights.length()-1));
                                     tempItem.setInbound_destination(in_flights.getJSONObject(in_flights.length()-1).getJSONObject("destination").getString("airport"));
                                     tempItem.setInbound_destination_time((in_flights.getJSONObject(in_flights.length()-1).getString("arrives_at")).split("T")[1].trim());
+                                    airlines.clear();
+                                    for(int z=0;z<in_flights.length();z++)
+                                        airlines.add(in_flights.getJSONObject(z).getString("operating_airline"));
+                                    inbound_airline=TranslateAirline(airlines);
                                 }else {
+                                    tempItem.setIn_stops("0");
                                     tempItem.setInbound_destination(in_flight.getJSONObject("destination").getString("airport"));
                                     tempItem.setInbound_destination_time((in_flight.getString("arrives_at")).split("T")[1].trim());
+                                    airlines.clear();
+                                    airlines.add(in_flight.getString("operating_airline"));
+                                    inbound_airline=TranslateAirline(airlines);
                                 }
                                 tempItem.setInbound_travel_class(in_flight.getJSONObject("booking_info").getString("travel_class"));
                                 tempItem.setInbound_available(in_flight.getJSONObject("booking_info").getString("seats_remaining"));
-
                             }
+                            //System.out.println(outbound_airline);
+                            if(inbound_airline==null)
+                                tempItem.setAirline(outbound_airline);
+                            else if(inbound_airline.equals(outbound_airline))
+                                tempItem.setAirline(inbound_airline);
+                            else
+                                tempItem.setAirline(getString(R.string.multiAirlines));
+
+
                             tempItem.setResult_indicator(i);
                             tempItem.setItinerary_indicator(j);
                             adapterList.add(tempItem);
@@ -201,28 +223,99 @@ public class SearchFlights extends AppCompatActivity {
                     SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                     listView.setAdapter(myAdapter);
 
-
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            /*Intent i = new Intent(SearchFlights.this, MainActivity.class);
-                            i.putExtra("JSON_response",response);
+                            Intent i = new Intent(SearchFlights.this, ListViewItemDetail.class);
+                            /*i.putExtra("JSON_response",response);
                             i.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
                             i.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());*/
-                            RelativeLayout ml = (RelativeLayout) findViewById(R.id.activity_search_flights);
-                            Snackbar.make(ml, "Loading Master/Detail Flow...", Snackbar.LENGTH_LONG).show();
-
+                            startActivity(i);
                         }
                     });
-
                 } catch (JSONException e) {
+                    System.out.println("ERROR : onPostExecute");
+                    loadingDialog.dismiss();
                     SearchFlights.this.finish();
                     e.printStackTrace();
                 } catch (Exception e){
+                    loadingDialog.dismiss();
+                    System.out.println("ERROR : onPostExecute");
                     SearchFlights.this.finish();
-
+                    e.printStackTrace();
                 }
             }
         }.execute();
     }
+
+
+    public String TranslateAirline(ArrayList<String> operating_airlines){
+        if(operating_airlines.size()!=1){
+            boolean same = true;
+            for(int i=0;i<operating_airlines.size()-1;i++)
+                for(int j=i+1;j<operating_airlines.size();j++){
+                    if(!operating_airlines.get(i).equals(operating_airlines.get(j)))
+                        same=false;
+                }
+            if(!same)
+                return getString(R.string.multiAirlines);
+        }
+        if(airline_codes.contains(operating_airlines.get(0))){
+            return airline_names.get(airline_codes.indexOf(operating_airlines.get(0)));
+        }
+            return RequestAirlineName(operating_airlines.get(0));
+
+    }
+
+    public String RequestAirlineName(final String airline_code) {
+        String result=null;
+        try {
+            result = new AsyncTask<Void,Void,String>(){
+
+                @Override
+                protected String doInBackground(Void... params) {
+
+                    String airline_name = "Not yet";
+                    String answer;
+                    try {
+                        String apiKey = getString(R.string.IATA_API_KEY);
+                        String link = "https://iatacodes.org/api/v6/airlines?api_key="+apiKey+"&code="+airline_code;
+                        //System.out.println(link);
+                        URL url = new URL(link);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        try {
+                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                            StringBuilder stringBuilder = new StringBuilder();
+                            String line;
+                            while ((line = bufferedReader.readLine()) != null) {
+                                stringBuilder.append(line).append("\n");
+                            }
+                            bufferedReader.close();
+                            //System.out.println("StringBuilder : " +stringBuilder.toString());
+                            JSONObject jsonResult = new JSONObject(stringBuilder.toString());
+                            JSONArray response = (JSONArray) jsonResult.get("response");
+                            //System.out.println(response.getJSONObject(0).getString("name"));
+                            airline_name = response.getJSONObject(0).getString("name");
+                        } finally {
+                            urlConnection.disconnect();
+                            //loadingDialog.dismiss();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("ERROR : 1rst try Request");
+                        return null;
+                    }
+                    airline_codes.add(airline_code);
+                    airline_names.add(airline_name);
+                    return airline_name;
+                }
+            }.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
