@@ -33,4 +33,6 @@
     <string name="search_toast_same">Δεν μπορείτε να βάλετε το ίδιο αεροδρόμιο.</string>
     <string name="pleaseWait">Παρακαλούμε περιμένετε</string>
     <string name="bestpricesText">Αναζητούμε τις καλύτερες τιμές...</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 </resources>

@@ -9,11 +9,12 @@ public class ListviewItem {
     String outbound_origin,outbound_origin_time,outbound_destination,outbound_destination_time;
     String inbound_origin,inbound_origin_time,inbound_destination,inbound_destination_time;
     String inbound_travel_class,inbound_available,outbound_travel_class,outbound_available,stops;
+    int result_indicator,itinerary_indicator;
 
     public ListviewItem() {
     }
 
-    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available, String stops) {
+    public ListviewItem(String airline, String price, String outbound_origin, String outbound_origin_time, String outbound_destination, String outbound_destination_time, String inbound_origin, String inbound_origin_time, String inbound_destination, String inbound_destination_time, String inbound_travel_class, String inbound_available, String outbound_travel_class, String outbound_available, String stops, int result_indicator, int itinerary_indicator) {
         this.airline = airline;
         this.price = price;
         this.outbound_origin = outbound_origin;
@@ -29,6 +30,24 @@ public class ListviewItem {
         this.outbound_travel_class = outbound_travel_class;
         this.outbound_available = outbound_available;
         this.stops = stops;
+        this.result_indicator = result_indicator;
+        this.itinerary_indicator = itinerary_indicator;
+    }
+
+    public int getResult_indicator() {
+        return result_indicator;
+    }
+
+    public void setResult_indicator(int result_indicator) {
+        this.result_indicator = result_indicator;
+    }
+
+    public int getItinerary_indicator() {
+        return itinerary_indicator;
+    }
+
+    public void setItinerary_indicator(int itinerary_indicator) {
+        this.itinerary_indicator = itinerary_indicator;
     }
 
     public String getStops() {

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -125,8 +127,8 @@ public class SearchFlights extends AppCompatActivity {
                     return null;
                 }
             }
-            protected void onPostExecute(String response) {
-                ArrayList<ListviewItem> adapterList = new ArrayList<ListviewItem>();
+            protected void onPostExecute(final String response) {
+                final ArrayList<ListviewItem> adapterList = new ArrayList<ListviewItem>();
                 boolean returnDate = false;
                 try {
                     // parse the json result returned from the service
@@ -184,6 +186,8 @@ public class SearchFlights extends AppCompatActivity {
                                 tempItem.setInbound_available(in_flight.getJSONObject("booking_info").getString("seats_remaining"));
 
                             }
+                            tempItem.setResult_indicator(i);
+                            tempItem.setItinerary_indicator(j);
                             adapterList.add(tempItem);
                         }
                     }
@@ -191,6 +195,22 @@ public class SearchFlights extends AppCompatActivity {
                     loadingDialog.dismiss();
                     SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                     listView.setAdapter(myAdapter);
+
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            /*Intent i = new Intent(SearchFlights.this, MainActivity.class);
+                            i.putExtra("JSON_response",response);
+                            i.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
+                            i.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());*/
+                            Toast.makeText(SearchFlights.this,"Loading Master/Detail Flow...", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+
                 } catch (JSONException e) {
                     Toast.makeText(SearchFlights.this,"Προέκυψε κάποιο σφάλμα,παρακαλώ δοκιμάστε ξανά.", Toast.LENGTH_LONG).show();
                     SearchFlights.this.finish();
