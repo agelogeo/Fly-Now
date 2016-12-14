@@ -35,4 +35,5 @@
     <string name="notAvailableTickets">Δεν υπάρχουν διαθέσιμα εισιτήρια.</string>
     <string name="multiAirlines">ΣΥΝΔΥΑΣΜΟΣ ΕΤΑΙΡΙΩΝ</string>
     <string name="loadingYourData">Φορτώνουμε τα δεδομένα που ζητήσατε.</string>
+    <string name="nearAirports">Αεροδρόμια κοντά σας</string>
 </resources>

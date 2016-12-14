@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Intent;
+import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,15 +22,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener , LocationListener {
     int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
     EditText departureText;
     EditText returnText ;
+    String lat = "!";
+    String lng = "!";
+    GoogleApiClient mGoogleApiClient = null;
     EditText fromText,destText,passengersText;
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
@@ -41,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                    .addConnectionCallbacks(MainActivity.this)
+                    .addOnConnectionFailedListener(MainActivity.this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+
 
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
@@ -65,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
+                i.putExtra("lat",lat);
+                i.putExtra("lng",lng);
                 startActivityForResult(i, 1);
             }
         });
@@ -74,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
+                i.putExtra("lat",lat);
+                i.putExtra("lng",lng);
                 startActivityForResult(i, 2);
              }
         });
@@ -456,4 +484,54 @@ public class MainActivity extends AppCompatActivity {
             returnText.setText(formatter.format(date));
         }
     };
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        try {
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            locationRequest.setInterval(5000);
+            locationRequest.setFastestInterval(3000);
+           /* FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;*/
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest,MainActivity.this);
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            System.out.println("MLASTLOCATION "+ mLastLocation);
+            if (mLastLocation != null) {
+                lat = String.valueOf(mLastLocation.getLatitude());
+                lng = String.valueOf(mLastLocation.getLongitude());
+                System.out.println("Lat : "+lat+" Long : "+lng);
+            }
+        }catch (SecurityException e){
+            e.printStackTrace();
+            lat="#";
+            lng="#";
+        }
+        if(lat.equals("#") || lng.equals("#")){
+            TextView nearby = (TextView) findViewById(R.id.nearbyTextView);
+            nearby.setVisibility(View.GONE);
+            RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_search_airport);
+            rl.setFocusableInTouchMode(false);
+            System.out.println("Error : #");
+        }else if(lat.equals("!") || lng.equals("!"))
+            System.out.println("Error : !");
+
+    }
+
+    public void onLocationChanged(Location location) {
+        //Toast.makeText(MainActivity.this, "location :"+location.getLatitude()+" , "+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        lat=String.valueOf(location.getLatitude());
+        lng=String.valueOf(location.getLongitude());
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
 }

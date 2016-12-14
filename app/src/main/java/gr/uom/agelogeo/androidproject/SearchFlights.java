@@ -31,7 +31,6 @@ public class SearchFlights extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flights);
-
         final ProgressDialog loadingDialog = new ProgressDialog(SearchFlights.this);
         loadingDialog.setTitle(getString(R.string.pleaseWait));
         loadingDialog.setMessage(getString(R.string.bestpricesText));
@@ -226,11 +225,11 @@ public class SearchFlights extends AppCompatActivity {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent i = new Intent(SearchFlights.this, ListViewItemDetail.class);
-                            /*i.putExtra("JSON_response",response);
-                            i.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
-                            i.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());*/
-                            startActivity(i);
+                            Intent DetailIntent = new Intent(SearchFlights.this, ListViewItemDetail.class);
+                            DetailIntent.putExtra("JSON_response",response);
+                            DetailIntent.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
+                            DetailIntent.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());
+                            startActivity(DetailIntent);
                         }
                     });
                 } catch (JSONException e) {
