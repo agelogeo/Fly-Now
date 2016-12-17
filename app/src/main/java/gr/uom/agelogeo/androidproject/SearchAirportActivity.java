@@ -159,6 +159,13 @@ public class SearchAirportActivity extends AppCompatActivity {
     }
 
     public void NearByAirports(final ListView listView){
+        if(lat.equals("!") || lng.equals("!")){
+            TextView nearby = (TextView) findViewById(R.id.nearbyTextView);
+            nearby.setVisibility(View.GONE);
+            RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_search_airport);
+            rl.setFocusableInTouchMode(false);
+            return ;
+        }
         try {
             new AsyncTask<Void, Void, String>() {
                 private Exception exception;
@@ -171,6 +178,7 @@ public class SearchAirportActivity extends AppCompatActivity {
                     try {
 
                         String apiKey = getString(R.string.IATA_API_KEY);
+
                         String link = "https://iatacodes.org/api/v6/nearby?api_key="+apiKey+"&lat="+lat+"&lng="+lng+"&distance=150";
                         System.out.println(link);
                         URL url = new URL(link);

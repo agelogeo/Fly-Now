@@ -10,7 +10,6 @@ import java.util.Date;
 
 import android.content.Intent;
 import android.location.Location;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -486,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     };
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 
