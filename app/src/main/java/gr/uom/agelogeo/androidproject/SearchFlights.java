@@ -136,7 +136,7 @@ public class SearchFlights extends AppCompatActivity {
                         Toast.makeText(SearchFlights.this, R.string.notAvailableTickets, Toast.LENGTH_LONG).show();
 
                     JSONObject jsonResult = new JSONObject(response);
-                    JSONArray results = (JSONArray) jsonResult.get("results");
+                    final JSONArray results = (JSONArray) jsonResult.get("results");
                     int counter = 0;
                     for(int i=0;i<results.length();i++){
 
@@ -226,8 +226,15 @@ public class SearchFlights extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent DetailIntent = new Intent(SearchFlights.this, ListViewItemDetail.class);
-                            DetailIntent.putExtra("JSON_response",response);
-                            DetailIntent.putExtra("LVI_result_ind",adapterList.get(position).getResult_indicator());
+                            JSONObject jsonResult = null;
+                            try {
+                                jsonResult = new JSONObject(response);
+                                JSONArray results = (JSONArray) jsonResult.get("results");
+                                JSONObject result = results.getJSONObject(adapterList.get(position).getResult_indicator());
+                                DetailIntent.putExtra("JSON_result", result.toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             DetailIntent.putExtra("LVI_itinerary_ind",adapterList.get(position).getItinerary_indicator());
                             startActivity(DetailIntent);
                         }
