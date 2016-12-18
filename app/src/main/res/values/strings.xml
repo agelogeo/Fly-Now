@@ -36,4 +36,5 @@
     <string name="multiAirlines">ΣΥΝΔΥΑΣΜΟΣ ΕΤΑΙΡΙΩΝ</string>
     <string name="loadingYourData">Φορτώνουμε τα δεδομένα που ζητήσατε.</string>
     <string name="nearAirports">Αεροδρόμια κοντά σας</string>
+    <string name="departTitle">Πρόγραμμα Αναχώρησης</string>
 </resources>

@@ -19,51 +19,66 @@
         android:layout_height="wrap_content"
         android:id="@+id/GeneralLayout">
 
-    <LinearLayout
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/journeyInfo"
+            android:paddingBottom="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:text="Θεσσαλονίκη - Αθήνα"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/journeyView"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textColor="@color/airportsIATA" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Συνολική διάρκεια : 2 ώρες"
+                    android:layout_width="241dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/journeyDuration"
+                    android:textSize="14sp"
+                    android:layout_weight="0.69" />
+
+                <TextView
+                    android:text="0 Στάσεις"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stopView"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/journeyInfo"
-        android:paddingBottom="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:text="Θεσσαλονίκη - Αθήνα"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/journeyView"
-            android:textStyle="normal|bold"
-            android:textSize="18sp"
-            android:textColor="@color/airportsIATA" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/outboundInfo"
+            android:background="@color/lightgray">
 
             <TextView
-                android:text="Συνολική διάρκεια : 2 ώρες"
-                android:layout_width="241dp"
+                android:text="@string/departTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/journeyDuration"
-                android:textSize="14sp"
-                android:layout_weight="0.69" />
+                android:id="@+id/departTitle"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
 
-            <TextView
-                android:text="0 Στάσεις"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:layout_weight="1"
-                android:textAlignment="textEnd" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-        <LinearLayout
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/departInfo"
+            android:id="@+id/outdInfo"
             android:paddingTop="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/activity_horizontal_margin"
             android:background="@color/lightgray">
@@ -84,7 +99,7 @@
                     android:text="20:10 16 Δεκ 2016"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView6"
+                    android:id="@+id/outdDate"
                     android:textSize="18sp"
                     android:textStyle="normal|bold"
                     android:textColor="@color/colorAccent"
@@ -99,7 +114,7 @@
                         android:text="SKG "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView5"
+                        android:id="@+id/outdPortCode"
                         android:textAlignment="textStart"
                         android:paddingLeft="@dimen/activity_vertical_margin"
                         android:layout_weight="0.10"
@@ -111,7 +126,7 @@
                         android:text="Makedonia Airport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView7"
+                        android:id="@+id/outdPortName"
                         android:layout_weight="0.91"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -120,7 +135,7 @@
                     android:text="RyanAir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView4"
+                    android:id="@+id/outdAirline"
                     android:paddingLeft="@dimen/activity_vertical_margin"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -130,7 +145,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/middleInfo"
+            android:id="@+id/outmInfo1"
             android:paddingTop="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/activity_horizontal_margin"
             android:background="@color/lightgray">
@@ -156,7 +171,7 @@
                         android:text="ATH"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView10"
+                        android:id="@+id/outm1PortCode"
                         android:paddingLeft="@dimen/activity_vertical_margin"
                         android:layout_weight="0.20"
                         android:textStyle="normal|bold"
@@ -167,7 +182,7 @@
                         android:text="Eleftherios Venizelos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView11"
+                        android:id="@+id/outm1PortName"
                         android:layout_weight="1"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -176,7 +191,7 @@
                     android:text="Olympic Air"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView8"
+                    android:id="@+id/outm1Airline"
                     android:paddingLeft="@dimen/activity_vertical_margin"
                     android:textSize="14sp" />
 
@@ -184,7 +199,7 @@
                     android:text="Διάρκεια Αναμονής : 1 ωρα"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView12"
+                    android:id="@+id/outm1Duration"
                     android:paddingLeft="@dimen/activity_vertical_margin"
                     android:textSize="14sp" />
 
@@ -193,10 +208,142 @@
         </LinearLayout>
 
         <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/outmInfo2"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/imageView3" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="ATH"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/outm2Portcode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.20"
+                            android:textStyle="normal|bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:text="Eleftherios Venizelos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/outm2PortName"
+                            android:layout_weight="1"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Olympic Air"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outm2Airline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Διάρκεια Αναμονής : 1 ωρα"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outm2Duration"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/outmInfo3"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/imageView3" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="ATH"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/outm3PortCode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.20"
+                            android:textStyle="normal|bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:text="Eleftherios Venizelos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/outm3Portname"
+                            android:layout_weight="1"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Olympic Air"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outm3Airline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Διάρκεια Αναμονής : 1 ωρα"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outm3Duration"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/arriveInfo"
+            android:id="@+id/outaInfo"
             android:paddingBottom="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_horizontal_margin"
             android:background="@color/lightgray">
@@ -218,7 +365,7 @@
                     android:text="23:50 16 Δεκ 2016"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView15"
+                    android:id="@+id/outaDate"
                     android:paddingLeft="@dimen/activity_vertical_margin"
                     android:textStyle="normal|bold"
                     android:textSize="18sp"
@@ -233,7 +380,7 @@
                         android:text="CHQ"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView14"
+                        android:id="@+id/outaPortCode"
                         android:paddingLeft="@dimen/activity_vertical_margin"
                         android:textStyle="normal|bold"
                         android:textColor="@color/colorAccent"
@@ -244,7 +391,7 @@
                         android:text="Chania Airport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView16"
+                        android:id="@+id/outaPortName"
                         android:layout_weight="1"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -253,17 +400,373 @@
                     android:text="Aegean Airlines"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView13"
+                    android:id="@+id/outaAirline"
                     android:paddingLeft="@dimen/activity_vertical_margin"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
 
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inboundInfo"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@color/lightgray">
+
+            <TextView
+                android:text="Πρόγραμμα Επιστροφής"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/arriveTitle"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/indInfo"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/departs_trans"
+                    android:id="@+id/imageView2"
+                    android:tint="@color/colorAccent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="20:10 16 Δεκ 2016"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/indDate"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"
+                        android:textColor="@color/colorAccent"
+                        android:paddingLeft="@dimen/activity_vertical_margin" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="SKG "
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/indPortCode"
+                            android:textAlignment="textStart"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.10"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="normal|bold" />
+
+                        <TextView
+                            android:text="Makedonia Airport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/indPortName"
+                            android:layout_weight="0.91"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="RyanAir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/indAirline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inmInfo1"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/imageView3" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="ATH"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm1PortCode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.20"
+                            android:textStyle="normal|bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:text="Eleftherios Venizelos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm1PortName"
+                            android:layout_weight="1"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Olympic Air"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm1Airline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Διάρκεια Αναμονής : 1 ωρα"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm1Duration"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inmInfo2"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/imageView3" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="ATH"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm2PortCode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.20"
+                            android:textStyle="normal|bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:text="Eleftherios Venizelos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm2Portname"
+                            android:layout_weight="1"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Olympic Air"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm2Airline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Διάρκεια Αναμονής : 1 ωρα"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm2Duration"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inmInfo3"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bluestar"
+                    android:id="@+id/imageView3" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="ATH"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm3PortCode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:layout_weight="0.20"
+                            android:textStyle="normal|bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:text="Eleftherios Venizelos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inm3PortName"
+                            android:layout_weight="1"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Olympic Air"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm3Airline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:text="Διάρκεια Αναμονής : 1 ωρα"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inm3Duration"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inaInfo"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:background="@color/lightgray">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/arrives_trans"
+                    android:id="@+id/imageView4"
+                    android:tint="@color/colorAccent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:text="23:50 16 Δεκ 2016"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inaDate"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textStyle="normal|bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorAccent" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="CHQ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inaPortCode"
+                            android:paddingLeft="@dimen/activity_vertical_margin"
+                            android:textStyle="normal|bold"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            android:layout_weight="0.08" />
+
+                        <TextView
+                            android:text="Chania Airport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inaPortName"
+                            android:layout_weight="1"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Aegean Airlines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inaAirline"
+                        android:paddingLeft="@dimen/activity_vertical_margin"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
         <Button
             android:text="Κάνε κράτηση"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
+            android:id="@+id/clicktobuy"
             android:paddingRight="@dimen/activity_vertical_margin"
             android:textAlignment="center"
             android:layout_gravity="right"
@@ -271,5 +774,4 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin" />
 
     </LinearLayout>
-
 </ScrollView>

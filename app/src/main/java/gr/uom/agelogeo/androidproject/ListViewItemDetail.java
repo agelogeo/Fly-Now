@@ -26,7 +26,7 @@ public class ListViewItemDetail extends AppCompatActivity {
         int itinerary_ind = i.getIntExtra("LVI_itinerary_ind",0);
 
 
-        try {
+        /*try {
             JSONObject jsonResult = new JSONObject(response);
             JSONArray results = (JSONArray) jsonResult.get("results");
             JSONObject result = results.getJSONObject(result_ind);
@@ -43,7 +43,7 @@ public class ListViewItemDetail extends AppCompatActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 }
