@@ -40,4 +40,6 @@
     <string name="acceotGPSPermission">Για την δική σας καλύτερη εξυπηρέτηση δεχτείτε την άδεια τοποθεσίας.</string>
     <string name="totalDuration">Συνολική διάρκεια :</string>
     <string name="minutes">λεπτά</string>
+    <string name="standbyDuration">"Διάρκεια Αναμονής : "</string>
+    <string name="thanksforpurchase">Ευχαριστούμε για την αγορά σας.</string>
 </resources>

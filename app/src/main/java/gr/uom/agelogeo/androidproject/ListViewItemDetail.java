@@ -3,13 +3,16 @@ package gr.uom.agelogeo.androidproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,15 @@ public class ListViewItemDetail extends AppCompatActivity {
         Intent i = this.getIntent();
         String response = i.getStringExtra("JSON_result");
         int itinerary_ind = i.getIntExtra("LVI_itinerary_ind",0);
+
+        Button clicktopay = (Button) findViewById(R.id.clicktobuy);
+        clicktopay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar snackbar = Snackbar.make((ScrollView) findViewById(R.id.activity_list_view_item_detail), R.string.thanksforpurchase, Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        });
 
         try {
             JSONObject result = new JSONObject(response);
@@ -139,6 +151,17 @@ public class ListViewItemDetail extends AppCompatActivity {
                         String[] temp2 = CallingAPIs(originCode,0).split("[|]");
                         InsideHolder.mPortName.setText(temp2[0]);
                         InsideHolder.mAirline.setText(CallingAPIs(in_flight.getString("operating_airline"),1));
+                        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                        try {
+                            Date departs_date = sdf3.parse(in_flights.getJSONObject(z-1).getString("arrives_at"));
+                            Date arrives_date = sdf3.parse(in_flights.getJSONObject(z).getString("departs_at"));
+                            long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
+                            System.out.println("DIFF "+diffMins);
+                            InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins+" "+getString(R.string.minutes));
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 }
@@ -240,7 +263,17 @@ public class ListViewItemDetail extends AppCompatActivity {
                     String[] temp2 = CallingAPIs(originCode,0).split("[|]");
                     InsideHolder.mPortName.setText(temp2[0]);
                     InsideHolder.mAirline.setText(CallingAPIs(out_flight.getString("operating_airline"),1));
+                    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                    try {
+                        Date departs_date = sdf2.parse(out_flights.getJSONObject(z-1).getString("arrives_at"));
+                        Date arrives_date = sdf2.parse(out_flights.getJSONObject(z).getString("departs_at"));
+                        long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
+                        System.out.println("DIFF "+diffMins);
+                        InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins+" "+getString(R.string.minutes));
 
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             out_flight = out_flights.getJSONObject(out_flights.length()-1);
