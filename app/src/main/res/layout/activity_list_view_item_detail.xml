@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/journeyInfo"
+            android:id="@+id/OutjourneyInfo"
             android:paddingBottom="@dimen/activity_horizontal_margin">
 
             <TextView
@@ -179,7 +179,7 @@
                         android:textColor="@color/colorAccent" />
 
                     <TextView
-                        android:text="Eleftherios Venizelos"
+                        android:text="Unknown Airport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/outm1PortName"
@@ -245,7 +245,7 @@
                             android:textColor="@color/colorAccent" />
 
                         <TextView
-                            android:text="Eleftherios Venizelos"
+                            android:text="Unknown Airport"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/outm2PortName"
@@ -311,7 +311,7 @@
                             android:textColor="@color/colorAccent" />
 
                         <TextView
-                            android:text="Eleftherios Venizelos"
+                            android:text="Unknown Airport"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/outm3Portname"
@@ -409,7 +409,46 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/InjourneyInfo"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin">
 
+            <TextView
+                android:text="Θεσσαλονίκη - Αθήνα"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/InjourneyView"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textColor="@color/airportsIATA" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Συνολική διάρκεια : 2 ώρες"
+                    android:layout_width="241dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/InjourneyDuration"
+                    android:textSize="14sp"
+                    android:layout_weight="0.69" />
+
+                <TextView
+                    android:text="0 Στάσεις"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/InstopView"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+        </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

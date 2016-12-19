@@ -38,4 +38,6 @@
     <string name="nearAirports">Αεροδρόμια κοντά σας</string>
     <string name="departTitle">Πρόγραμμα Αναχώρησης</string>
     <string name="acceotGPSPermission">Για την δική σας καλύτερη εξυπηρέτηση δεχτείτε την άδεια τοποθεσίας.</string>
+    <string name="totalDuration">Συνολική διάρκεια :</string>
+    <string name="minutes">λεπτά</string>
 </resources>
