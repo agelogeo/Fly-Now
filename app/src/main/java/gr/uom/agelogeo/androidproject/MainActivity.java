@@ -1,5 +1,6 @@
 package gr.uom.agelogeo.androidproject;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 
@@ -8,9 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -48,21 +53,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
-                    .addConnectionCallbacks(MainActivity.this)
-                    .addOnConnectionFailedListener(MainActivity.this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
+
+        GPSLocationPermissionRequest();
+
+
+
 
 
         returnText = (EditText) findViewById(R.id.returnDate);
@@ -532,5 +533,51 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
 
+    }
+
+    public void GPSLocationPermissionRequest(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showMessageOKCancel(getString(R.string.acceotGPSPermission),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                                                    REQUEST_CODE_ASK_PERMISSIONS);
+                                    }
+
+                                }
+                            });
+                    return;
+                }
+                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+                return;
+            }
+        }
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                    .addConnectionCallbacks(MainActivity.this)
+                    .addOnConnectionFailedListener(MainActivity.this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+
+
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 }

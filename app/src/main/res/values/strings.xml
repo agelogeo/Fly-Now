@@ -37,4 +37,5 @@
     <string name="loadingYourData">Φορτώνουμε τα δεδομένα που ζητήσατε.</string>
     <string name="nearAirports">Αεροδρόμια κοντά σας</string>
     <string name="departTitle">Πρόγραμμα Αναχώρησης</string>
+    <string name="acceotGPSPermission">Για την δική σας καλύτερη εξυπηρέτηση δεχτείτε την άδεια τοποθεσίας.</string>
 </resources>
