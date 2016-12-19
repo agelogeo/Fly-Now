@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_layout">
+
+        <TextView
+            android:text="RyanAir"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/airline"
+            android:gravity="left|center_vertical"
+            android:textStyle="normal|bold"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="398 Euro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/price"
+            android:gravity="right|center_vertical"
+            android:textStyle="normal|bold"
+            android:textColor="@color/priceColor"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itinerary_layout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/outbound_layout"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="SKG"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_origin"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="@color/airportsIATA"
+                android:textStyle="normal|bold"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:text="16:00"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_origin_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/colorBlack" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/to_right"
+                android:id="@+id/outbound_arrow"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="ATH"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_destination"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/airportsIATA" />
+
+            <TextView
+                android:text="16:45"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_destination_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/outbound_bottom_layout"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Οικονομική"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_travel_class"
+                android:layout_width="160dp" />
+
+            <TextView
+                android:text=" 0"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:id="@+id/out_stop_c"
+                android:textAlignment="viewStart"
+                android:textStyle="normal|bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="0.22" />
+
+            <TextView
+                android:text="Διαθέσιμες : "
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/outbound_seats"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:text="9"
+                android:layout_height="wrap_content"
+                android:id="@+id/outbound_available"
+                android:textColor="@color/priceColor"
+                android:layout_width="35dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/inbound_layout">
+
+            <TextView
+                android:text="ATH"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_origin"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/airportsIATA" />
+
+            <TextView
+                android:text="23:00"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_origin_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/colorBlack" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/to_left"
+                android:id="@+id/inbound_arrow"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="SKG"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_destination"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/airportsIATA" />
+
+            <TextView
+                android:text="23:50"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_destination_time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="normal|bold"
+                android:textColor="@color/colorBlack" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/inbound_bottom_layout"
+            android:weightSum="1"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="Οικονομική προνομιακή"
+                android:id="@+id/inbound_travel_class"
+                android:layout_height="wrap_content"
+                android:layout_width="160dp" />
+
+            <TextView
+                android:text=" 0"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/in_stop_c"
+                android:layout_weight="1.05"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Διαθέσιμες : "
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/inbound_seats"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:text="13"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/inbound_available"
+                android:textColor="@color/priceColor" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

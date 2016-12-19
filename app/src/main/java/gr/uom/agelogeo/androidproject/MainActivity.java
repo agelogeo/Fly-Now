@@ -1,5 +1,6 @@
 package gr.uom.agelogeo.androidproject;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 
@@ -8,8 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,34 +26,51 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener , LocationListener {
     int adult_p = 1 , kid_p = 0 , baby_p = 0 , max_p = 9;
-    EditText departureText/* = (EditText) findViewById(R.id.departureDate)*/;
-    EditText returnText /*= (EditText) findViewById(R.id.arrivalDate)*/;
+    EditText departureText;
+    EditText returnText ;
+    String lat = "!";
+    String lng = "!";
+    GoogleApiClient mGoogleApiClient = null;
     EditText fromText,destText,passengersText;
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
-    Switch directflightswitch,flexdayswitch;
+    Switch directflightswitch;
     Button searchflightsbtn ;
     int year_x,month_x,day_x;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        GPSLocationPermissionRequest();
+
+
+
+
 
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
         passengersText = (EditText) findViewById(R.id.passengersText);
         passengersNumber = (TextView) findViewById(R.id.passengersNumber);
         directflightswitch = (Switch) findViewById(R.id.directflightswitch);
-        flexdayswitch = (Switch) findViewById(R.id.flexdayswitch);
         searchflightsbtn = (Button)findViewById(R.id.search_flights_btn);
         final Calendar cal = Calendar.getInstance();
         year_x=cal.get(Calendar.YEAR);
@@ -66,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
+                i.putExtra("lat",lat);
+                i.putExtra("lng",lng);
                 startActivityForResult(i, 1);
             }
         });
@@ -75,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,SearchAirportActivity.class);
+                i.putExtra("lat",lat);
+                i.putExtra("lng",lng);
                 startActivityForResult(i, 2);
              }
         });
@@ -105,13 +132,36 @@ public class MainActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setTitle(R.string.passenger_selection_title);
                 dialog.setContentView(R.layout.custom_dialog);
-                /*adult_p=1;
-                kid_p=0;
-                baby_p=0;*/
                 dialog.show();
                 DialogListeners(dialog);
             }
         });
+
+        searchflightsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fromText.getText().length()==0 || destText.getText().length()==0  || departureText.getText().length()==0 )
+                    Toast.makeText(MainActivity.this,getString(R.string.search_toast_empty), Toast.LENGTH_SHORT).show();
+                else if(fromText.getText().toString().equals(destText.getText().toString()))
+                    Toast.makeText(MainActivity.this, R.string.search_toast_same, Toast.LENGTH_SHORT).show();
+                else {
+                    Intent i = new Intent(MainActivity.this, SearchFlights.class);
+                    System.out.println(fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1));
+                    System.out.println(destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1));
+                    i.putExtra("origin", fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1).toString());
+                    i.putExtra("destination", destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1).toString());
+                    i.putExtra("departure_date", departureText.getText().toString());
+                    i.putExtra("return_date", returnText.getText().toString());
+                    i.putExtra("adults", adult_p);
+                    i.putExtra("children", kid_p);
+                    i.putExtra("infants", baby_p);
+                    i.putExtra("nonstop", directflightswitch.isChecked());
+                    i.putExtra("travel_class", "ECONOMY");
+                    startActivity(i);
+                }
+            }
+        });
+
     }
 
 
@@ -342,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
                     Date departureD = sdf.parse(s.toString());
                     if(returnText.getText().length()!=0) {
@@ -350,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
                         if(departureD.after(returnD))
                             returnText.setText("");
                     }
-
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -366,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
                     Date returnD = sdf.parse(s.toString());
                     if(returnText.getText().length()!=0) {
@@ -390,7 +439,6 @@ public class MainActivity extends AppCompatActivity {
                 showDialog(DEPARTURE_DATE_ID);
             }
         });
-
         returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -417,7 +465,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
 
         public void onDateSet(DatePicker datePicker, int year, int month, int day ) {
-            departureText.setText(day+"/"+(month+1)+"/"+year);
+            Calendar cal = Calendar.getInstance();
+            cal.set(year,month,day);
+            Date date = cal.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            departureText.setText(formatter.format(date));
         }
     };
 
@@ -425,7 +477,107 @@ public class MainActivity extends AppCompatActivity {
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            returnText.setText(day+"/"+(month+1)+"/"+year);
+            Calendar cal = Calendar.getInstance();
+            cal.set(year,month,day);
+            Date date = cal.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            returnText.setText(formatter.format(date));
         }
     };
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        try {
+            LocationRequest locationRequest = LocationRequest.create();
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            locationRequest.setInterval(5000);
+            locationRequest.setFastestInterval(3000);
+           /* FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;*/
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest,MainActivity.this);
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            System.out.println("MLASTLOCATION "+ mLastLocation);
+            if (mLastLocation != null) {
+                lat = String.valueOf(mLastLocation.getLatitude());
+                lng = String.valueOf(mLastLocation.getLongitude());
+                System.out.println("Lat : "+lat+" Long : "+lng);
+            }
+        }catch (SecurityException e){
+            e.printStackTrace();
+            lat="#";
+            lng="#";
+        }
+        if(lat.equals("#") || lng.equals("#")){
+            TextView nearby = (TextView) findViewById(R.id.nearbyTextView);
+            nearby.setVisibility(View.GONE);
+            RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_search_airport);
+            rl.setFocusableInTouchMode(false);
+            System.out.println("Error : #");
+        }else if(lat.equals("!") || lng.equals("!"))
+            System.out.println("Error : !");
+
+    }
+
+    public void onLocationChanged(Location location) {
+        //Toast.makeText(MainActivity.this, "location :"+location.getLatitude()+" , "+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        lat=String.valueOf(location.getLatitude());
+        lng=String.valueOf(location.getLongitude());
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    public void GPSLocationPermissionRequest(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showMessageOKCancel(getString(R.string.acceotGPSPermission),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                                                    REQUEST_CODE_ASK_PERMISSIONS);
+                                    }
+
+                                }
+                            });
+                    return;
+                }
+                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+                return;
+            }
+        }
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
+                    .addConnectionCallbacks(MainActivity.this)
+                    .addOnConnectionFailedListener(MainActivity.this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+
+
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
 }

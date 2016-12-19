@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Fly Now</string>
+    <string name="app_name" translatable="false">Fly Now</string>
 
 
     <string-array name="ticket_plan">
-        <item>@string/all_cabin_classes</item>
         <item>@string/economy</item>
         <item>@string/economy_premium</item>
         <item>@string/business</item>
@@ -11,7 +10,6 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="all_cabin_classes">Όλες οι ταξιδιωτικές θέσεις</string>
     <string name="economy">Οικονομική</string>
     <string name="economy_premium">Οικονομική προνομιακή</string>
     <string name="business">Επαγγελματική</string>
@@ -23,11 +21,25 @@
     <string name="directflightswitch">ΑΠΕΥΘΕΙΑΣ ΠΤΗΣΕΙΣ ΜΟΝΟ</string>
     <string name="departureDate">Ημερομηνία Αναχώρησης</string>
     <string name="arrivalDate">Ημερομηνία Επιστροφής</string>
-    <string name="flexibledayswitch">+/- 3 Ημερών</string>
     <string name="passengers_initial">1 Επιβάτης</string>
     <string name="passengers_plurar"> Επιβάτες</string>
     <string name="passengers_single"> Επιβάτης</string>
     <string name="searchflightsbtn">Αναζήτηση Πτήσεων</string>
     <string name="searchtextforairports">Αναζήτηση...</string>
     <string name="confirmbtn">Επιβεβαίωση</string>
+    <string name="stops" translatable="false">"STOP :"</string>
+    <string name="search_toast_empty">Παρακαλώ εισάγετε δεδομένα πρώτα</string>
+    <string name="search_toast_same">Δεν μπορείτε να βάλετε το ίδιο αεροδρόμιο.</string>
+    <string name="pleaseWait">Παρακαλούμε περιμένετε</string>
+    <string name="bestpricesText">Αναζητούμε τις καλύτερες τιμές...</string>
+    <string name="notAvailableTickets">Δεν υπάρχουν διαθέσιμα εισιτήρια.</string>
+    <string name="multiAirlines">ΣΥΝΔΥΑΣΜΟΣ ΕΤΑΙΡΙΩΝ</string>
+    <string name="loadingYourData">Φορτώνουμε τα δεδομένα που ζητήσατε.</string>
+    <string name="nearAirports">Αεροδρόμια κοντά σας</string>
+    <string name="departTitle">Πρόγραμμα Αναχώρησης</string>
+    <string name="acceotGPSPermission">Για την δική σας καλύτερη εξυπηρέτηση δεχτείτε την άδεια τοποθεσίας.</string>
+    <string name="totalDuration">Συνολική διάρκεια :</string>
+    <string name="minutes">λεπτά</string>
+    <string name="standbyDuration">"Διάρκεια Αναμονής : "</string>
+    <string name="thanksforpurchase">Ευχαριστούμε για την αγορά σας.</string>
 </resources>

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00aaff</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorPrimary">#00ccff</color>
+    <color name="colorPrimaryDark">#0099ff</color>
     <color name="colorAccent">#00aaff</color>
     <color name="colordarkgray">#aaaaaa</color>
     <color name="colorBlack">#000000</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="airportsIATA">#0800ff</color>
+    <color name="priceColor">#ff0000</color>
+    <color name="listitem_background">#e7e7e7</color>
+    <color name="lightgray">#ededed</color>
 </resources>
