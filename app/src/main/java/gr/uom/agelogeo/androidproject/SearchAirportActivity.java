@@ -2,12 +2,9 @@ package gr.uom.agelogeo.androidproject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,13 +17,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,7 +115,7 @@ public class SearchAirportActivity extends AppCompatActivity {
                                     String label = jsonResult.getJSONObject(i).getString("label");
                                     values[i] = label;
                                 }
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                                 listView.setAdapter(adapter);
 
                             } catch (JSONException e) {
@@ -213,7 +203,7 @@ public class SearchAirportActivity extends AppCompatActivity {
                                     String name = jsonResult.getJSONObject(i).getString("name");
                                     values[i] = name+" ["+code+"]";
                                 }
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchAirportActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
                                 listView.setAdapter(adapter);
                                 ListViewItemClickListener(listView);
 
@@ -222,9 +212,7 @@ public class SearchAirportActivity extends AppCompatActivity {
                             }
                 }
             }.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }

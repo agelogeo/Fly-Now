@@ -1,20 +1,15 @@
 package gr.uom.agelogeo.androidproject;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class ListViewItemDetail extends AppCompatActivity {
     boolean hasInbound = true;
-    ArrayList<String> result_params = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +38,7 @@ public class ListViewItemDetail extends AppCompatActivity {
         clicktopay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar snackbar = Snackbar.make((ScrollView) findViewById(R.id.activity_list_view_item_detail), R.string.thanksforpurchase, Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_list_view_item_detail), R.string.thanksforpurchase, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         });
@@ -371,9 +364,7 @@ public class ListViewItemDetail extends AppCompatActivity {
                 }
 
             }.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return null;
