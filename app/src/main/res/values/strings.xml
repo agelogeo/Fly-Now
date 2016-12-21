@@ -42,4 +42,5 @@
     <string name="minutes">λεπτά</string>
     <string name="standbyDuration">"Διάρκεια Αναμονής : "</string>
     <string name="thanksforpurchase">Ευχαριστούμε για την αγορά σας.</string>
+    <string name="chooseDepartDateFirst">Παρακαλώ επιλέξτε πρώτα ημερομηνία αναχώρησης.</string>
 </resources>

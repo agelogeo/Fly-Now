@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
     Switch directflightswitch;
+    DatePickerDialog returndialog = null;
     Button searchflightsbtn ;
-    int year_x,month_x,day_x;
+    int year_x,month_x,day_x,year_d=-1,month_d=-1,day_d=-1;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -61,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
         GPSLocationPermissionRequest();
-
-
 
 
 
@@ -394,11 +393,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date departureD = sdf.parse(s.toString());
-                    if(returnText.getText().length()!=0) {
-                        Date returnD = sdf.parse(returnText.getText().toString());
-                        if(departureD.after(returnD))
-                            returnText.setText("");
+                    if(departureText.length()!=0) {
+                        Date departureD = sdf.parse(s.toString());
+                        if(returnText.getText().length()!=0) {
+                            Date returnD = sdf.parse(returnText.getText().toString());
+                            if(departureD.after(returnD))
+                                returnText.setText("");
+                        }
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -417,11 +418,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date returnD = sdf.parse(s.toString());
-                    if(returnText.getText().length()!=0) {
-                        Date departureD = sdf.parse(departureText.getText().toString());
-                        if(returnD.before(departureD))
-                            departureText.setText("");
+                    if(returnText.length()!=0) {
+                        Date returnD = sdf.parse(s.toString());
+                        if (returnText.getText().length() != 0) {
+                            Date departureD = sdf.parse(departureText.getText().toString());
+                            if (returnD.before(departureD))
+                                departureText.setText("");
+                        }
                     }
 
                 } catch (ParseException e) {
@@ -437,12 +440,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             @Override
             public void onClick(View v) {
                 showDialog(DEPARTURE_DATE_ID);
+                if(departureText.length()!=0)
+                    removeDialog(ARRIVAL_DATE_ID);
             }
         });
         returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(ARRIVAL_DATE_ID);
+                if(departureText.length()!=0) {
+                    showDialog(ARRIVAL_DATE_ID);
+                }else
+                    Toast.makeText(MainActivity.this, R.string.chooseDepartDateFirst, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -453,14 +461,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
             return dialog;
         }else if ( id == ARRIVAL_DATE_ID ) {
-            DatePickerDialog dialog = new DatePickerDialog(this, dpickerListner2, year_x, month_x, day_x);
-            dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
-            return dialog;
-        }return null;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            Calendar calendar = Calendar.getInstance();
+            try {
+                Date d = formatter.parse(departureText.getText().toString());
+                calendar.setTime(d);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(returndialog==null) {
+                returndialog = new DatePickerDialog(this, dpickerListner2, year_d, month_d, day_d);
+                returndialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+            }
+            return returndialog;
+        }
+        return null;
     }
 
-    private DatePickerDialog.OnDateSetListener dpickerListner
-            = new DatePickerDialog.OnDateSetListener() {
+
+    private DatePickerDialog.OnDateSetListener dpickerListner = new DatePickerDialog.OnDateSetListener() {
 
         @Override
 
@@ -470,11 +489,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Date date = cal.getTime();
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             departureText.setText(formatter.format(date));
+
+            year_d = year;
+            month_d = month;
+            day_d = day;
         }
     };
 
-    private DatePickerDialog.OnDateSetListener dpickerListner2
-            = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener dpickerListner2 = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             Calendar cal = Calendar.getInstance();
@@ -482,8 +504,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Date date = cal.getTime();
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             returnText.setText(formatter.format(date));
-        }
-    };
+    }
+};
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
