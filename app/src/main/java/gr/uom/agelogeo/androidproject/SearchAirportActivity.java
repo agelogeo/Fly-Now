@@ -94,7 +94,6 @@ public class SearchAirportActivity extends AppCompatActivity {
                                         stringBuilder.append(line).append("\n");
                                     }
                                     bufferedReader.close();
-                                    //System.out.println(stringBuilder.toString());
                                     return stringBuilder.toString();
                                 } finally {
                                     urlConnection.disconnect();
@@ -181,7 +180,6 @@ public class SearchAirportActivity extends AppCompatActivity {
                                 stringBuilder.append(line).append("\n");
                             }
                             bufferedReader.close();
-                            System.out.println(stringBuilder.toString());
                             return stringBuilder.toString();
                         } finally {
                             urlConnection.disconnect();

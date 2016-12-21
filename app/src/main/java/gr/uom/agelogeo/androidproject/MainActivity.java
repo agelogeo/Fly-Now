@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,10 +61,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         GPSLocationPermissionRequest();
-
-
 
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
@@ -145,8 +143,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     Toast.makeText(MainActivity.this, R.string.search_toast_same, Toast.LENGTH_SHORT).show();
                 else {
                     Intent i = new Intent(MainActivity.this, SearchFlights.class);
-                    System.out.println(fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1));
-                    System.out.println(destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1));
                     i.putExtra("origin", fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1).toString());
                     i.putExtra("destination", destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1).toString());
                     i.putExtra("departure_date", departureText.getText().toString());
@@ -155,7 +151,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     i.putExtra("children", kid_p);
                     i.putExtra("infants", baby_p);
                     i.putExtra("nonstop", directflightswitch.isChecked());
-                    i.putExtra("travel_class", "ECONOMY");
+                    Spinner ticket_plan = (Spinner) findViewById(R.id.ticket_plan);
+                    switch(ticket_plan.getSelectedItemPosition()){
+                        case 0:
+                            i.putExtra("travel_class", "ECONOMY");
+                            break;
+                        case 1:
+                            i.putExtra("travel_class", "PREMIUM_ECONOMY");
+                            break;
+                        case 2:
+                            i.putExtra("travel_class", "BUSINESS");
+                            break;
+                        case 3:
+                            i.putExtra("travel_class", "FIRST");
+                            break;
+                        default:
+                            i.putExtra("travel_class", "economy");
+                    }
                     startActivity(i);
                 }
             }
@@ -523,7 +535,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest,MainActivity.this);
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            System.out.println("MLASTLOCATION "+ mLastLocation);
             if (mLastLocation != null) {
                 lat = String.valueOf(mLastLocation.getLatitude());
                 lng = String.valueOf(mLastLocation.getLongitude());

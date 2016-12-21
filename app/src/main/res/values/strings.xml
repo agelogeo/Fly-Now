@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">Fly Now</string>
 
 
-    <string-array name="ticket_plan">
+    <string-array name="ticket_plan_array">
         <item>@string/economy</item>
         <item>@string/economy_premium</item>
         <item>@string/business</item>
