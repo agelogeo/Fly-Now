@@ -405,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    if(departureText.length()!=0) {
+                    if(departureText.getText().length()!=0) {
                         Date departureD = sdf.parse(s.toString());
                         if(returnText.getText().length()!=0) {
                             Date returnD = sdf.parse(returnText.getText().toString());
@@ -430,13 +430,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    if(returnText.length()!=0) {
+                    if(returnText.getText().length()!=0) {
                         Date returnD = sdf.parse(s.toString());
-                        if (returnText.getText().length() != 0) {
-                            Date departureD = sdf.parse(departureText.getText().toString());
+                        Date departureD = sdf.parse(departureText.getText().toString());
                             if (returnD.before(departureD))
                                 departureText.setText("");
-                        }
                     }
 
                 } catch (ParseException e) {
@@ -451,15 +449,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         departureText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showDialog(DEPARTURE_DATE_ID);
-                if(departureText.length()!=0)
-                    removeDialog(ARRIVAL_DATE_ID);
+
             }
         });
         returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(departureText.length()!=0) {
+                if(departureText.getText().length()!=0) {
+                    removeDialog(ARRIVAL_DATE_ID);
                     showDialog(ARRIVAL_DATE_ID);
                 }else
                     Toast.makeText(MainActivity.this, R.string.chooseDepartDateFirst, Toast.LENGTH_LONG).show();
@@ -481,10 +480,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if(returndialog==null) {
-                returndialog = new DatePickerDialog(this, dpickerListner2, year_d, month_d, day_d);
-                returndialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
-            }
+            returndialog = new DatePickerDialog(this, dpickerListner2, year_d, month_d, day_d);
+            returndialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
             return returndialog;
         }
         return null;
