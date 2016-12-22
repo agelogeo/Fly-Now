@@ -1,20 +1,15 @@
 package gr.uom.agelogeo.androidproject;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class ListViewItemDetail extends AppCompatActivity {
     boolean hasInbound = true;
-    ArrayList<String> result_params = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +38,7 @@ public class ListViewItemDetail extends AppCompatActivity {
         clicktopay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar snackbar = Snackbar.make((ScrollView) findViewById(R.id.activity_list_view_item_detail), R.string.thanksforpurchase, Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_list_view_item_detail), R.string.thanksforpurchase, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         });
@@ -54,8 +47,11 @@ public class ListViewItemDetail extends AppCompatActivity {
             JSONObject result = new JSONObject(response);
             JSONArray itineraries = (JSONArray) result.get("itineraries");
             JSONObject selected_itinerary = itineraries.getJSONObject(itinerary_ind);
-            System.out.println(selected_itinerary);
-            System.out.println(result.get("fare"));
+
+            clicktopay.setText(getString(R.string.clicktobuyString)+" "+result.getJSONObject("fare").getString("total_price")+" €");
+
+            /*System.out.println(selected_itinerary);
+            System.out.println(result.get("fare"));*/
 
             JSONObject outbound = selected_itinerary.getJSONObject("outbound");
             JSONArray out_flights = (JSONArray) outbound.get("flights");
@@ -88,12 +84,11 @@ public class ListViewItemDetail extends AppCompatActivity {
                 try {
                     Date departs_date = sdf.parse(in_flight.getString("departs_at"));
                     Date arrives_date = sdf.parse(in_flights.getJSONObject(in_flights.length()-1).getString("arrives_at"));
-                    long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
-                    System.out.println("DIFF "+diffMins);
+                    String diffMins = TimeDifferenceToString(arrives_date.getTime(),departs_date.getTime());
                     sdf = new SimpleDateFormat("HH:mm   dd-MM-yyyy");
                     inboundHolder.dDate.setText(sdf.format(departs_date));
                     inboundHolder.aDate.setText(sdf.format(arrives_date));
-                    inboundHolder.journeyDuration.setText(getString(R.string.totalDuration)+" "+diffMins+" "+getString(R.string.minutes));
+                    inboundHolder.journeyDuration.setText(getString(R.string.totalDuration)+" "+diffMins);
 
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -155,9 +150,8 @@ public class ListViewItemDetail extends AppCompatActivity {
                         try {
                             Date departs_date = sdf3.parse(in_flights.getJSONObject(z-1).getString("arrives_at"));
                             Date arrives_date = sdf3.parse(in_flights.getJSONObject(z).getString("departs_at"));
-                            long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
-                            System.out.println("DIFF "+diffMins);
-                            InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins+" "+getString(R.string.minutes));
+                            String diffMins = TimeDifferenceToString(departs_date.getTime(),arrives_date.getTime());
+                            InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins);
 
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -200,12 +194,11 @@ public class ListViewItemDetail extends AppCompatActivity {
             try {
                 Date departs_date = sdf.parse(out_flight.getString("departs_at"));
                 Date arrives_date = sdf.parse(out_flights.getJSONObject(out_flights.length()-1).getString("arrives_at"));
-                long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
-                System.out.println("DIFF "+diffMins);
+                String diffMins = TimeDifferenceToString(departs_date.getTime(),arrives_date.getTime());
                 sdf = new SimpleDateFormat("HH:mm   dd-MM-yyyy");
                 outboundHolder.dDate.setText(sdf.format(departs_date));
                 outboundHolder.aDate.setText(sdf.format(arrives_date));
-                outboundHolder.journeyDuration.setText(getString(R.string.totalDuration)+" "+diffMins+" "+getString(R.string.minutes));
+                outboundHolder.journeyDuration.setText(getString(R.string.totalDuration)+" "+diffMins);
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -267,9 +260,8 @@ public class ListViewItemDetail extends AppCompatActivity {
                     try {
                         Date departs_date = sdf2.parse(out_flights.getJSONObject(z-1).getString("arrives_at"));
                         Date arrives_date = sdf2.parse(out_flights.getJSONObject(z).getString("departs_at"));
-                        long diffMins = (Math.abs(arrives_date.getTime()-departs_date.getTime()))/1000/60;
-                        System.out.println("DIFF "+diffMins);
-                        InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins+" "+getString(R.string.minutes));
+                        String diffMins = TimeDifferenceToString(departs_date.getTime(),arrives_date.getTime());
+                        InsideHolder.mDuration.setText(getString(R.string.standbyDuration)+" "+diffMins);
 
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -371,12 +363,43 @@ public class ListViewItemDetail extends AppCompatActivity {
                 }
 
             }.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return null;
 
+    }
+
+    public String TimeDifferenceToString(long arrives,long departs){
+        long milliseconds = Math.abs(arrives-departs);
+        int seconds = (int) (milliseconds / 1000) % 60 ;
+        int minutes = (int) ((milliseconds / (1000*60)) % 60);
+        int hours   = (int) ((milliseconds / (1000*60*60)) % 24);
+        int days  = (int) ((milliseconds / (1000*60*60*24)));
+
+        String result = "";
+        if(days>0){
+            if(days==1)
+                result+=days+getString(R.string.day);
+            else
+                result+=days+getString(R.string.days);
+        }
+        if(hours>0){
+            if(hours==1)
+                result+=hours+getString(R.string.hour);
+            else
+                result+=hours+getString(R.string.hours);
+        }
+        if(minutes>0){
+            if(minutes==1)
+                result+=minutes+getString(R.string.minute);
+            else
+                result+=minutes+getString(R.string.minutes);
+        }
+        System.out.println("Seconds: "+seconds);
+        System.out.println("Minutes: "+minutes);
+        System.out.println("Hours: "+hours);
+        System.out.println("Days: "+days);
+        return result;
     }
 }

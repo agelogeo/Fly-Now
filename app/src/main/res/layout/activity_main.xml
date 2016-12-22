@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/ticket_plan"
                     android:layout_weight="0.06"
-                    android:entries="@array/ticket_plan" />
+                    android:entries="@array/ticket_plan_array" />
 
             </LinearLayout>
         </LinearLayout>

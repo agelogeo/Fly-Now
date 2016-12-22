@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FNow.iml" filepath="$PROJECT_DIR$/FNow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlyNow.iml" filepath="$PROJECT_DIR$/FlyNow.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     TextView passengersNumber;
     ImageButton swapAirports,clearReturnDate;
     Switch directflightswitch;
+    DatePickerDialog returndialog = null;
     Button searchflightsbtn ;
-    int year_x,month_x,day_x;
+    int year_x,month_x,day_x,year_d=-1,month_d=-1,day_d=-1;
     static final int DEPARTURE_DATE_ID = 0;
     static final int ARRIVAL_DATE_ID = 1;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -59,12 +61,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         GPSLocationPermissionRequest();
-
-
-
-
 
         returnText = (EditText) findViewById(R.id.returnDate);
         departureText = (EditText) findViewById(R.id.departureDate);
@@ -146,8 +143,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     Toast.makeText(MainActivity.this, R.string.search_toast_same, Toast.LENGTH_SHORT).show();
                 else {
                     Intent i = new Intent(MainActivity.this, SearchFlights.class);
-                    System.out.println(fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1));
-                    System.out.println(destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1));
                     i.putExtra("origin", fromText.getText().subSequence(fromText.getText().length()-4,fromText.getText().length()-1).toString());
                     i.putExtra("destination", destText.getText().subSequence(destText.getText().length()-4,destText.getText().length()-1).toString());
                     i.putExtra("departure_date", departureText.getText().toString());
@@ -156,7 +151,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     i.putExtra("children", kid_p);
                     i.putExtra("infants", baby_p);
                     i.putExtra("nonstop", directflightswitch.isChecked());
-                    i.putExtra("travel_class", "ECONOMY");
+                    Spinner ticket_plan = (Spinner) findViewById(R.id.ticket_plan);
+                    switch(ticket_plan.getSelectedItemPosition()){
+                        case 0:
+                            i.putExtra("travel_class", "ECONOMY");
+                            break;
+                        case 1:
+                            i.putExtra("travel_class", "PREMIUM_ECONOMY");
+                            break;
+                        case 2:
+                            i.putExtra("travel_class", "BUSINESS");
+                            break;
+                        case 3:
+                            i.putExtra("travel_class", "FIRST");
+                            break;
+                        default:
+                            i.putExtra("travel_class", "economy");
+                    }
                     startActivity(i);
                 }
             }
@@ -394,11 +405,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date departureD = sdf.parse(s.toString());
-                    if(returnText.getText().length()!=0) {
-                        Date returnD = sdf.parse(returnText.getText().toString());
-                        if(departureD.after(returnD))
-                            returnText.setText("");
+                    if(departureText.getText().length()!=0) {
+                        Date departureD = sdf.parse(s.toString());
+                        if(returnText.getText().length()!=0) {
+                            Date returnD = sdf.parse(returnText.getText().toString());
+                            if(departureD.after(returnD))
+                                returnText.setText("");
+                        }
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -417,11 +430,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date returnD = sdf.parse(s.toString());
                     if(returnText.getText().length()!=0) {
+                        Date returnD = sdf.parse(s.toString());
                         Date departureD = sdf.parse(departureText.getText().toString());
-                        if(returnD.before(departureD))
-                            departureText.setText("");
+                            if (returnD.before(departureD))
+                                departureText.setText("");
                     }
 
                 } catch (ParseException e) {
@@ -436,13 +449,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         departureText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showDialog(DEPARTURE_DATE_ID);
+
             }
         });
         returnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(ARRIVAL_DATE_ID);
+                if(departureText.getText().length()!=0) {
+                    removeDialog(ARRIVAL_DATE_ID);
+                    showDialog(ARRIVAL_DATE_ID);
+                }else
+                    Toast.makeText(MainActivity.this, R.string.chooseDepartDateFirst, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -453,14 +472,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
             return dialog;
         }else if ( id == ARRIVAL_DATE_ID ) {
-            DatePickerDialog dialog = new DatePickerDialog(this, dpickerListner2, year_x, month_x, day_x);
-            dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
-            return dialog;
-        }return null;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            Calendar calendar = Calendar.getInstance();
+            try {
+                Date d = formatter.parse(departureText.getText().toString());
+                calendar.setTime(d);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            returndialog = new DatePickerDialog(this, dpickerListner2, year_d, month_d, day_d);
+            returndialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+            return returndialog;
+        }
+        return null;
     }
 
-    private DatePickerDialog.OnDateSetListener dpickerListner
-            = new DatePickerDialog.OnDateSetListener() {
+
+    private DatePickerDialog.OnDateSetListener dpickerListner = new DatePickerDialog.OnDateSetListener() {
 
         @Override
 
@@ -470,11 +499,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Date date = cal.getTime();
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             departureText.setText(formatter.format(date));
+
+            year_d = year;
+            month_d = month;
+            day_d = day;
         }
     };
 
-    private DatePickerDialog.OnDateSetListener dpickerListner2
-            = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener dpickerListner2 = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             Calendar cal = Calendar.getInstance();
@@ -482,8 +514,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Date date = cal.getTime();
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             returnText.setText(formatter.format(date));
-        }
-    };
+    }
+};
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -501,7 +533,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,locationRequest,MainActivity.this);
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            System.out.println("MLASTLOCATION "+ mLastLocation);
             if (mLastLocation != null) {
                 lat = String.valueOf(mLastLocation.getLatitude());
                 lng = String.valueOf(mLastLocation.getLongitude());

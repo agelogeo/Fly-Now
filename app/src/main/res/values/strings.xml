@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">Fly Now</string>
 
 
-    <string-array name="ticket_plan">
+    <string-array name="ticket_plan_array">
         <item>@string/economy</item>
         <item>@string/economy_premium</item>
         <item>@string/business</item>
@@ -39,7 +39,14 @@
     <string name="departTitle">Πρόγραμμα Αναχώρησης</string>
     <string name="acceotGPSPermission">Για την δική σας καλύτερη εξυπηρέτηση δεχτείτε την άδεια τοποθεσίας.</string>
     <string name="totalDuration">Συνολική διάρκεια :</string>
-    <string name="minutes">λεπτά</string>
     <string name="standbyDuration">"Διάρκεια Αναμονής : "</string>
     <string name="thanksforpurchase">Ευχαριστούμε για την αγορά σας.</string>
+    <string name="chooseDepartDateFirst">Παρακαλώ επιλέξτε πρώτα ημερομηνία αναχώρησης.</string>
+    <string name="clicktobuyString">Κάνε κράτηση : </string>
+    <string name="day">" ημέρα "</string>
+    <string name="days">" ημέρες "</string>
+    <string name="hour">" ώρα "</string>
+    <string name="hours">" ώρες "</string>
+    <string name="minute">" λεπτό "</string>
+    <string name="minutes">" λεπτά "</string>
 </resources>
