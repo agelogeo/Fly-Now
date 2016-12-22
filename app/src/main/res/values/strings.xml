@@ -15,6 +15,9 @@
     <string name="business">Επαγγελματική</string>
     <string name="first">Πρώτη</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="passenger_selection_title">Επιλογή επιβατών</string>
     <string name="from">Από</string>
     <string name="To">Πρός</string>
