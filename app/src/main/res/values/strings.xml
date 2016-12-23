@@ -15,6 +15,9 @@
     <string name="business">Επαγγελματική</string>
     <string name="first">Πρώτη</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="passenger_selection_title">Επιλογή επιβατών</string>
     <string name="from">Από</string>
     <string name="To">Πρός</string>
@@ -49,4 +52,15 @@
     <string name="hours">" ώρες "</string>
     <string name="minute">" λεπτό "</string>
     <string name="minutes">" λεπτά "</string>
+    <string name="nav_tickets">Εισιτήρια</string>
+    <string name="nav_info">Πληροφορίες</string>
+    <string name="nav_preferences">Ρυθμίσεις</string>
+    <string name="nav_topflights">Top πτήσεις</string>
+    <string name="app">Εφαρμογή</string>
+    <string name="underConstruction">" είναι υπό κατασκευή..."</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="technicalError">Υπήρχε κάποιο τεχνικό πρόβλημα, παρακαλώ προσπαθήστε ξανά αργότερα.</string>
+    <string name="flights">Πτήσεις</string>
+    <string name="travelers">Επιβάτες</string>
 </resources>
