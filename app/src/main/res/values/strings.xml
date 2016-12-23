@@ -52,4 +52,9 @@
     <string name="hours">" ώρες "</string>
     <string name="minute">" λεπτό "</string>
     <string name="minutes">" λεπτά "</string>
+    <string name="nav_tickets">Εισιτήρια</string>
+    <string name="nav_info">Πληροφορίες</string>
+    <string name="nav_preferences">Ρυθμίσεις</string>
+    <string name="nav_topflights">Top πτήσεις</string>
+    <string name="app">Εφαρμογή</string>
 </resources>
