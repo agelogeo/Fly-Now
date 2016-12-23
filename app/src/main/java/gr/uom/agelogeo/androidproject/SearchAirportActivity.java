@@ -216,27 +216,7 @@ public class SearchAirportActivity extends AppCompatActivity {
     }
 
 
-    /*private void getLocation(){
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
-    }
 
-
-    @Override
-    public void onConnected(Bundle arg0) {
-        fusedLocationProviderApi.requestLocationUpdates(googleApiClient,  locationRequest, this);
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        Toast.makeText(mContext, "location :"+location.getLatitude()+" , "+location.getLongitude(), Toast.LENGTH_SHORT).show();
-    }*/
 
 
 }

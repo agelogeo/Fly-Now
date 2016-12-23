@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="gr.uom.agelogeo.androidproject.TopFlights"
+    android:id="@+id/topDest">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Δημοφιλέστερες πτήσεις προτελευταίου μήνα"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textStyle="normal|bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/airport"
+            android:focusableInTouchMode="false"
+            android:hint="Fragment"
+            android:paddingTop="@dimen/activity_vertical_margin" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="345dp"
+            android:id="@+id/listofTopAirports"
+            android:layout_weight="0.12" />
+
+    </LinearLayout>
+
+</FrameLayout>

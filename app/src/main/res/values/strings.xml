@@ -57,4 +57,10 @@
     <string name="nav_preferences">Ρυθμίσεις</string>
     <string name="nav_topflights">Top πτήσεις</string>
     <string name="app">Εφαρμογή</string>
+    <string name="underConstruction">" είναι υπό κατασκευή..."</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="technicalError">Υπήρχε κάποιο τεχνικό πρόβλημα, παρακαλώ προσπαθήστε ξανά αργότερα.</string>
+    <string name="flights">Πτήσεις</string>
+    <string name="travelers">Επιβάτες</string>
 </resources>

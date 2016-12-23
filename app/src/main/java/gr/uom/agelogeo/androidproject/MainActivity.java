@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,8 @@ import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,11 +29,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -66,12 +71,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.content_main);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
+        InitialFragment();
         GPSLocationPermissionRequest();
 
         returnText = (EditText) findViewById(R.id.returnDate);
@@ -85,9 +87,21 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         month_x=cal.get(Calendar.MONTH);
         day_x=cal.get(Calendar.DAY_OF_MONTH);
 
+
         showDialogOnClick();
         Listeners();
 
+
+
+    }
+
+    public void InitialFragment(){
+
+        setContentView(R.layout.activity_main);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -96,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
 
@@ -650,15 +663,29 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-            // Handle the camera action
+            startActivity(new Intent(MainActivity.this,MainActivity.class));
+            finish();
         } else if (id == R.id.nav_checkin) {
-
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout_container), "e-Check in"+getString(R.string.underConstruction), Snackbar.LENGTH_LONG);
+            snackbar.show();
         } else if (id == R.id.nav_topdestinations) {
+            TopFlights fragment = new TopFlights();
+            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
+            mainLayout.removeAllViews();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.layout_container,fragment);
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_preferences) {
-
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.layout_container), getString(R.string.nav_preferences)+getString(R.string.underConstruction), Snackbar.LENGTH_LONG);
+            snackbar.show();
         } else if (id == R.id.nav_info) {
-
+            InfoFragment fragment = new InfoFragment();
+            FrameLayout mainLayout = (FrameLayout) findViewById(R.id.layout_container);
+            mainLayout.removeAllViews();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.layout_container,fragment);
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

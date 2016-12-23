@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_checkin"
             android:icon="@android:drawable/ic_menu_send"
-            android:title="e-Check In" />
+            android:title="e-Check in" />
         <item
             android:id="@+id/nav_topdestinations"
             android:icon="@android:drawable/ic_menu_mapmode"
