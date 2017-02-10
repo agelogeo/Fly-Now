@@ -69,7 +69,8 @@ public class TopFlights extends Fragment {
         day_x=cal.get(Calendar.DAY_OF_MONTH);
 
         System.out.println("Year : "+year_x+" Month : "+month_x+" Day : "+day_x);
-
+        year_x=2016;
+        month_x=11;
         Intent i = new Intent(getActivity(),SearchAirportActivity.class);
         i.putExtra("lat","!");
         i.putExtra("lng","!");

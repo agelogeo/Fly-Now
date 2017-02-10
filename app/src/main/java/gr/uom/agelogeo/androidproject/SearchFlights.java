@@ -219,6 +219,8 @@ public class SearchFlights extends AppCompatActivity {
                         }
                         System.out.println("Counter : "+counter);
                         loadingDialog.dismiss();
+
+
                         SearchFlightsAdapter myAdapter = new SearchFlightsAdapter(SearchFlights.this, adapterList , returnDate);
                         listView.setAdapter(myAdapter);
 
